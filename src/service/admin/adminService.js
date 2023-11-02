@@ -51,9 +51,9 @@ export const deleteUserService = async (userId, userRoles) => {
 	}
 };
 
-export const updateProfilService = async (data) => {
+export const updateProfilService = async (formData) => {
 	try {
-		const response = await apiUrl.post("/admin/settings", data);
+		const response = await apiUrl.post("/admin/settings", formData);
 		return response;
 	} catch (error) {
 		throw error;

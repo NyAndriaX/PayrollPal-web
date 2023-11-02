@@ -13,7 +13,8 @@ const SettingsFormModal = ({ isOpen, onRequestClose, onSubmit, user }) => {
 		getValues,
 	} = useForm({ mode: "onChange" });
 
-	const handleConfirmAccept = (data) => {
+	const handleConfirmAccept = () => {
+		const data = getValues();
 		onSubmit(data);
 		onRequestClose();
 	};
@@ -31,6 +32,26 @@ const SettingsFormModal = ({ isOpen, onRequestClose, onSubmit, user }) => {
 			<p className="p-h1">Profil</p>
 			<p className="p-h3 text-center">Editer mon profile</p>
 			<form onSubmit={handleSubmit(handleConfirmAccept)}>
+				<div className="data-ignores">
+					<Controller
+						name="_id"
+						control={control}
+						defaultValue={user._id}
+						render={({ field }) => (
+							<input type="hidden" className="input" {...field} />
+						)}
+					/>
+
+					<Controller
+						name="nom"
+						control={control}
+						defaultValue={user.nom}
+						render={({ field }) => <input className="input" {...field} />}
+						rules={{
+							required: "Nom is required",
+						}}
+					/>
+				</div>
 				<div>
 					<p className="p-label">Nom</p>
 					<Controller
@@ -74,8 +95,25 @@ const SettingsFormModal = ({ isOpen, onRequestClose, onSubmit, user }) => {
 					/>
 					{errors.email && <p className="p-error">{errors.email.message}</p>}
 				</div>
+
+				<Controller
+					name="password"
+					control={control}
+					defaultValue={user.password}
+					render={({ field }) => (
+						<input type="hidden" className="input" {...field} />
+					)}
+				/>
 				<p className="p-label">Roles</p>
-				<input className="input" disabled value={user.roles} />
+
+				<Controller
+					name="roles"
+					control={control}
+					defaultValue={user.roles}
+					render={({ field }) => (
+						<input type="text" disabled className="input" {...field} />
+					)}
+				/>
 				<div className="justify-space-between">
 					<button
 						onClick={handleConfirmAccept}

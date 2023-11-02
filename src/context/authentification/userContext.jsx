@@ -4,6 +4,7 @@ import {
 	loginAction,
 	fetchDataInfosData,
 	logoutAction,
+	updatedProfilAction,
 } from "../../service/authentification/authAction.js";
 import { authReducer } from "./userReducer.js";
 
@@ -24,6 +25,7 @@ const UserProvider = ({ children }) => {
 		<UserContext.Provider
 			value={{
 				data,
+				updatedProfil: (formData) => updatedProfilAction(dispatch, formData),
 				checkedEmail: (email) => checkedEmailAction(dispatch, email),
 				login: (userData) => loginAction(dispatch, userData),
 				logout: () => logoutAction(dispatch),

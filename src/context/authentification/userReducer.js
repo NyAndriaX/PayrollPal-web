@@ -1,7 +1,7 @@
 import {
 	FETCH_DATA_IN_SESSION_STORAGE,
 	LOGOUT_USER,
-	LOGIN_USER,
+	UPDATED_PROFIL_ADMIN,
 } from "../../service/authentification/authAction.js";
 
 const authReducer = (state, action) => {
@@ -19,14 +19,12 @@ const authReducer = (state, action) => {
 				infosUsers: null,
 				isSecureContext: true,
 			};
-		case LOGOUT_USER:
-			console.log(action.payload);
-		// state.isSecureContext = false;
-		// return {
-		// 	...state,
-		// 	infosUsers: a,
-		// 	isSecureContext: true,
-		// };
+		case UPDATED_PROFIL_ADMIN:
+			sessionStorage.setItem("token", action.payload?.authToken);
+			return {
+				...state,
+				infosUsers: action.payload.user,
+			};
 		default:
 			return state;
 	}

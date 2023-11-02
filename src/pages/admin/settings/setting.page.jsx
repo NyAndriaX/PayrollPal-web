@@ -3,12 +3,13 @@ import ComponentSettings from "../../../components/admin/settings/component.sett
 import SettingsFormModal from "../../../components/admin/settings/modal.settings.form";
 import { useUserData } from "../../../context/authentification/userContext.jsx";
 const SettingAdminPage = () => {
-	const { data } = useUserData();
+	const { data, updatedProfil } = useUserData();
 	const user = data.infosUsers;
 	const [isOpenFormModal, setOpenFormModal] = React.useState(false);
 
-	const onSubmit = () => {
-		console.log("ici");
+	const onSubmit = (data) => {
+		const formData = data;
+		updatedProfil(formData);
 	};
 
 	const openFormModal = () => {

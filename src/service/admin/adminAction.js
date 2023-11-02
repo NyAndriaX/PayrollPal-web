@@ -4,7 +4,6 @@ import {
 	deleteFreelanceWaitService,
 	fetchAllUsersService,
 	deleteUserService,
-	updateProfilService,
 	fetchListPlacementService,
 	fetchListFreelanceService,
 	fetchListCompanyService,
