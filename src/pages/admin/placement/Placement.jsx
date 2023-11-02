@@ -1,5 +1,5 @@
 import ComponentCardPlacementJoin from "../../../components/admin/placement/card/component.card.placement.join";
-import ComponentTableCompany from "../../../components/admin/placement/table/component.table.company";
+import ComponentTablePlacementList from "../../../components/admin/placement/table/component.table.placement.list";
 import { PlacementDataProvider } from "../../../context/admin/placement/placementContext";
 
 const PlacementPage = () => {
@@ -7,7 +7,7 @@ const PlacementPage = () => {
 		<PlacementDataProvider>
 			<div className="column">
 				<ComponentCardPlacementJoin />
-				<ComponentTableCompany />
+				<ComponentTablePlacementList />
 			</div>
 		</PlacementDataProvider>
 	);

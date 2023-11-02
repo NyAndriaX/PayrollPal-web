@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 
-const DynamicSelect = ({ data, onSelect }) => {
-	const [selectedOption, setSelectedOption] = useState(null);
+const DynamicSelect = ({ data, onSelect, values }) => {
+	const defaultValues = {
+		value: values?.id,
+		label:
+			values?.prenom && values?.nom
+				? `${values?.prenom} ${values?.nom}`
+				: values?.raisonSocial,
+	};
+	const [selectedOption, setSelectedOption] = useState(defaultValues);
 	const [options, setOptions] = useState([]);
 
 	useEffect(() => {
 		const dynamicOptions = data.map((item) => ({
-			value: item.id,
+			value: item._id,
 			label:
 				item.prenom && item.nom
 					? `${item.prenom} ${item.nom}`

@@ -1,13 +1,13 @@
 import { styled } from "styled-components";
 
-export const ComponentTableCompanyStyled = styled.div`
+export const ComponentTablePlacementListStyled = styled.div`
 	th[name="RaisonSocial"] {
 		width: 20%;
 		min-width: 150px;
 	}
 	th[name="FreelanceurNom"] {
-		width: 15%;
-		min-width: 120px;
+		width: 12%;
+		min-width: 80px;
 	}
 	th[name="FreelanceurChasseurNom"] {
 		width: 15%;

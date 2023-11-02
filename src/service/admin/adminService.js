@@ -88,3 +88,33 @@ export const fetchListCompanyService = async () => {
 		throw error;
 	}
 };
+
+export const addNewPlacementService = async (data) => {
+	try {
+		const response = await apiUrl.post("/admin/placement", data);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const deletePlacementService = async (placementId) => {
+	try {
+		const response = await apiUrl.delete(`/admin/placement/${placementId}`);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const putPlacementService = async (formData, placementId) => {
+	try {
+		const response = await apiUrl.put(
+			`/admin/placement/${placementId}`,
+			formData
+		);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};

@@ -2,6 +2,9 @@ import {
 	FETCH_LIST_PLACEMENT,
 	FETCH_LIST_FREELANCE,
 	FETCH_LIST_COMPANY,
+	ADD_NEW_PLACEMENT,
+	DELETE_PLACEMENT,
+	PUT_PLACEMENT,
 } from "../../../service/admin/adminAction";
 
 const placementReducer = (state, action) => {
@@ -21,20 +24,32 @@ const placementReducer = (state, action) => {
 				...state,
 				companyData: action.payload,
 			};
-		// case VALIDATE_USER_FREELANCE:
-		// 	const initUpdateData = Object.values(state);
-		// 	const updatedData = initUpdateData.filter(
-		// 		(item) => item._id !== action.payload
-		// 	);
+		case ADD_NEW_PLACEMENT:
+			return {
+				...state,
+				placementData: [...state.placementData, action.payload],
+			};
+		case DELETE_PLACEMENT:
+			const newDataPlacementDelete = state.placementData.filter(
+				(item) => item._id !== action.payload
+			);
+			return {
+				...state,
+				placementData: newDataPlacementDelete,
+			};
+		case PUT_PLACEMENT:
+			const updatedPlacementData = state.placementData.map((item) => {
+				if (item._id === action.payload._id) {
+					return action.payload;
+				} else {
+					return item;
+				}
+			});
+			return {
+				...state,
+				placementData: updatedPlacementData,
+			};
 
-		// 	return updatedData;
-		// case DELETE_USER_FREELANCE_WAIT:
-		// 	const initDeleteData = Object.values(state);
-		// 	const deleteData = initDeleteData.filter(
-		// 		(item) => item._id !== action.payload
-		// 	);
-
-		// 	return deleteData;
 		default:
 			return state;
 	}

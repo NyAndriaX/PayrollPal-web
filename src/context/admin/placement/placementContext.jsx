@@ -4,6 +4,9 @@ import {
 	fetchListPlacementDataAction,
 	fetchListFreelanceDataAction,
 	fetchListCompanyDataAction,
+	addNewPlacementAction,
+	deletePlacementAction,
+	putPlacementAction,
 } from "../../../service/admin/adminAction";
 
 const initialState = {
@@ -27,8 +30,11 @@ export const PlacementDataProvider = ({ children }) => {
 		<PlacementDataContext.Provider
 			value={{
 				data,
-				// validateFreelance: (id) => validateFreelanceAction(dispatch, id),
-				// deleteFreelanceWait: (id) => deleteFreelanceWaitAction(dispatch, id),
+				addNewPlacement: (data) => addNewPlacementAction(dispatch, data),
+				putPlacement: (formData, placementId) =>
+					putPlacementAction(dispatch, formData, placementId),
+				deletePlacement: (placementId) =>
+					deletePlacementAction(dispatch, placementId),
 			}}>
 			{children}
 		</PlacementDataContext.Provider>

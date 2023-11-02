@@ -1,18 +1,45 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { ComponentCardPlacementJoinStyled } from "./component.card.placement.join.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPersonWalkingLuggage } from "@fortawesome/free-solid-svg-icons";
 import DynamicSelect from "../../../common/dynamicSelect";
+import { usePlacementData } from "../../../../context/admin/placement/placementContext";
 
 const ComponentCardPlacementJoin = () => {
+	const { data, addNewPlacement } = usePlacementData();
+	const { freelanceData } = data;
+	const { companyData } = data;
 	const {
 		control,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isValid },
+		getValues,
+		reset,
 	} = useForm({ mode: "onChange" });
-	const onSubmit = (data) => {
-		console.log(data);
+	const [error, setError] = React.useState("");
+	const [isLoading, setLoading] = React.useState(false);
+
+	const transformData = (data) => {
+		let dataObject = {
+			idFreelance: data.Freelance.value || "",
+			idFreelanceChasseur: data.FreelanceChasseur.value || "",
+			idEntreprise: data.Entreprise.value || "",
+			revenuMensuelFreelanceChasseur: data.FreelanceChasseurRevenu,
+		};
+		return dataObject;
+	};
+	const onSubmit = async (data) => {
+		const value = transformData(data);
+		try {
+			setLoading(true);
+			await addNewPlacement(value);
+			setError("");
+			setLoading(false);
+		} catch (error) {
+			setError(error?.response?.data.Error);
+			setLoading(false);
+		}
 	};
 	return (
 		<ComponentCardPlacementJoinStyled>
@@ -32,10 +59,7 @@ const ComponentCardPlacementJoin = () => {
 									render={({ field }) => (
 										<>
 											<DynamicSelect
-												data={[
-													{ id: 1, nom: "Doe", prenom: "John" },
-													{ id: 2, nom: "Smith", prenom: "Jane" },
-												]}
+												data={freelanceData}
 												onSelect={(selectedOption) =>
 													field.onChange(selectedOption)
 												}
@@ -58,10 +82,7 @@ const ComponentCardPlacementJoin = () => {
 									render={({ field }) => (
 										<>
 											<DynamicSelect
-												data={[
-													{ id: 1, nom: "Doe", prenom: "John" },
-													{ id: 2, nom: "Smith", prenom: "Jane" },
-												]}
+												data={freelanceData}
 												onSelect={(selectedOption) =>
 													field.onChange(selectedOption)
 												}
@@ -83,7 +104,12 @@ const ComponentCardPlacementJoin = () => {
 									rules={{ required: "Ce champ est  requis" }}
 									render={({ field }) => (
 										<>
-											<input className="input" {...field} />
+											<input
+												type="number"
+												min="0"
+												className="input"
+												{...field}
+											/>
 											{errors.FreelanceChasseurRevenu && (
 												<span className="p-error">
 													{errors.FreelanceChasseurRevenu.message}
@@ -112,7 +138,7 @@ const ComponentCardPlacementJoin = () => {
 									render={({ field }) => (
 										<>
 											<DynamicSelect
-												data={[{ id: 1, raisonSocial: "John" }]}
+												data={companyData}
 												onSelect={(selectedOption) =>
 													field.onChange(selectedOption)
 												}
@@ -138,19 +164,40 @@ const ComponentCardPlacementJoin = () => {
 									<p
 										className="p-h3"
 										style={{ color: "rgb(255, 138, 0)", fontWeight: 700 }}>
-										N.B: Résumer du placement
+										N.B: Autre terme
 									</p>
 									<p className="p">
-										Boostez votre entreprise avec FreelPay :{" "}
-										<span style={{ color: "blue", fontWeight: 700 }}>245£</span>{" "}
-										des talents freelance, des solutions professionnelles
+										{!isValid ? (
+											<>
+												veuiller completer toutes les champs pour avoir plus de
+												claireter...
+											</>
+										) : (
+											<>
+												<>
+													La freelanceur{" "}
+													{getValues("Freelance")?.label || "non spécifié"} est
+													trouvée par la freelanceur qui est son chasseur{" "}
+													{getValues("FreelanceChasseur")?.label ||
+														"non spécifié"}{" "}
+													pour intégrer l'entreprise{" "}
+													{getValues("Entreprise")?.label || "non spécifié"} et
+													qui dois avoir une revenu mensuel de pour cet
+													freelanceur{" "}
+													{getValues("FreelanceChasseurRevenu") ||
+														"non spécifié"}{" "}
+													Arriary.
+												</>
+											</>
+										)}
 									</p>
 								</div>
 							</div>
 						</div>
 						<div style={{ marginTop: "12px" }}>
+							<p className="p-error text-center">{error && <>{error}</>}</p>
 							<button className="btn-secondary" onClick={handleSubmit}>
-								Join
+								{isLoading ? <>Chargement</> : <>Join</>}
 							</button>
 						</div>
 					</div>

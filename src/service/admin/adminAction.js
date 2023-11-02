@@ -8,6 +8,9 @@ import {
 	fetchListPlacementService,
 	fetchListFreelanceService,
 	fetchListCompanyService,
+	addNewPlacementService,
+	deletePlacementService,
+	putPlacementService,
 } from "./adminService";
 
 // Freelance Waiting
@@ -132,6 +135,9 @@ export const updateProfilAction = async (dispatch, data) => {
 export const FETCH_LIST_PLACEMENT = "FETCH_LIST_PLACEMENT";
 export const FETCH_LIST_COMPANY = "FETCH_LIST_COMPANY";
 export const FETCH_LIST_FREELANCE = "FETCH_LIST_FREELANCE";
+export const ADD_NEW_PLACEMENT = "ADD_NEW_PLACEMENT";
+export const DELETE_PLACEMENT = "DELETE_PLACEMENT";
+export const PUT_PLACEMENT = "PUT_PLACEMENT";
 
 export const fetchListPlacementDataAction = async (dispatch) => {
 	try {
@@ -162,6 +168,42 @@ export const fetchListCompanyDataAction = async (dispatch) => {
 		const result = await fetchListCompanyService();
 		dispatch({
 			type: FETCH_LIST_COMPANY,
+			payload: result.data.result,
+		});
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const addNewPlacementAction = async (dispatch, data) => {
+	try {
+		const result = await addNewPlacementService(data);
+		dispatch({
+			type: ADD_NEW_PLACEMENT,
+			payload: result.data.result,
+		});
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const deletePlacementAction = async (dispatch, placementId) => {
+	try {
+		const result = await deletePlacementService(placementId);
+		dispatch({
+			type: DELETE_PLACEMENT,
+			payload: placementId,
+		});
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const putPlacementAction = async (dispatch, formData, placementId) => {
+	try {
+		const result = await putPlacementService(formData, placementId);
+		dispatch({
+			type: PUT_PLACEMENT,
 			payload: result.data.result,
 		});
 	} catch (error) {
