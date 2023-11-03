@@ -5,8 +5,9 @@ import ComponentModalFormCompany from "./component.modal.form.company";
 import { useCompanyData } from "../../../../context/admin/company/companyContext";
 
 const ComponentCardCompany = () => {
+	const { data, createNewCompany } = useCompanyData();
+	const { nbrCompany } = data;
 	const [isLoading, setLoading] = React.useState(false);
-	const { createNewCompany } = useCompanyData();
 	const [isOpenModalFormCompany, setOpenModalFormCompany] =
 		React.useState(false);
 
@@ -56,7 +57,7 @@ const ComponentCardCompany = () => {
 				<div className="card">
 					<p className="p-h3-secondary">Nombre des entreprise</p>
 					<div className="row-btn-2">
-						<p className="p-indicateur-secondary">0</p>
+						<p className="p-indicateur-secondary">{nbrCompany}</p>
 						<button className="btn-secondary" onClick={openModalFormCompany}>
 							Creer un entreprise
 						</button>

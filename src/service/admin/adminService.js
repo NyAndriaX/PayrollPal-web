@@ -119,14 +119,22 @@ export const putPlacementService = async (formData, placementId) => {
 	}
 };
 
-
 //SERVICE : CREATE user of company
 
 export const createNewCompanyService = async (formData) => {
-	try{
-		const response = await apiUrl.post(`/admin/company`,formData);
-		return response
-	}catch(error){
-		throw error
+	try {
+		const response = await apiUrl.post(`/admin/company`, formData);
+		return response;
+	} catch (error) {
+		throw error;
 	}
-}
+};
+
+export const fecthDataUserAllCompanyService = async () => {
+	try {
+		const response = await apiUrl.get("/admin/company");
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};

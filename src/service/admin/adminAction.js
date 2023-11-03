@@ -11,6 +11,7 @@ import {
 	deletePlacementService,
 	putPlacementService,
 	createNewCompanyService,
+	fecthDataUserAllCompanyService,
 } from "./adminService";
 
 // Freelance Waiting
@@ -213,6 +214,8 @@ export const putPlacementAction = async (dispatch, formData, placementId) => {
 
 //ACTION : Create user of company
 export const CREATE_NEW_COMPANY = "CREATE_NEW_COMPANY";
+export const FECTH_DATA_USER_ALL_COMPANY = "FECTH_DATA_USER_ALL_COMPANY";
+export const DELETE_USER_COMPANY = "DELETE_USER_COMPANY";
 
 export const createNewCompanyAction = async (dispatch, formData) => {
 	try {
@@ -220,6 +223,30 @@ export const createNewCompanyAction = async (dispatch, formData) => {
 		dispatch({
 			type: CREATE_NEW_COMPANY,
 			payload: result.data,
+		});
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const fecthDataUserAllCompanyAction = async (dispatch) => {
+	try {
+		const result = await fecthDataUserAllCompanyService();
+		dispatch({
+			type: FECTH_DATA_USER_ALL_COMPANY,
+			payload: result.data,
+		});
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const deleteUserCompanyAction = async (dispatch, userId, userRoles) => {
+	try {
+		await deleteUserService(userId, userRoles);
+		dispatch({
+			type: DELETE_USER_COMPANY,
+			payload: { userId, userRoles },
 		});
 	} catch (error) {
 		throw error;

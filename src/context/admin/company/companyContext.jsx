@@ -1,6 +1,10 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { companyReducer } from "./companyReducer";
-import { createNewCompanyAction } from "../../../service/admin/adminAction";
+import {
+	createNewCompanyAction,
+	fecthDataUserAllCompanyAction,
+	deleteUserCompanyAction,
+} from "../../../service/admin/adminAction";
 
 const initialState = {
 	companyList: [],
@@ -12,14 +16,16 @@ export const CompanyDataContext = createContext();
 export const CompanyProvider = ({ children }) => {
 	const [data, dispatch] = useReducer(companyReducer, initialState);
 
-	// React.useEffect(() => {
-	// 	fetchAllUsersAction(dispatch);
-	// }, []);
+	React.useEffect(() => {
+		fecthDataUserAllCompanyAction(dispatch);
+	}, []);
 
 	return (
 		<CompanyDataContext.Provider
 			value={{
 				data,
+				deleteUserCompany: (userId, userRoles) =>
+					deleteUserCompanyAction(dispatch, userId, userRoles),
 				createNewCompany: (formData) =>
 					createNewCompanyAction(dispatch, formData),
 			}}>
