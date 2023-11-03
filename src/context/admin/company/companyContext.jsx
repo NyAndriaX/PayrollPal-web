@@ -4,6 +4,7 @@ import {
 	createNewCompanyAction,
 	fecthDataUserAllCompanyAction,
 	deleteUserCompanyAction,
+	updateUserCompanyAction,
 } from "../../../service/admin/adminAction";
 
 const initialState = {
@@ -24,6 +25,8 @@ export const CompanyProvider = ({ children }) => {
 		<CompanyDataContext.Provider
 			value={{
 				data,
+				updateUserCompany: (userId, formData) =>
+					updateUserCompanyAction(dispatch, userId, formData),
 				deleteUserCompany: (userId, userRoles) =>
 					deleteUserCompanyAction(dispatch, userId, userRoles),
 				createNewCompany: (formData) =>

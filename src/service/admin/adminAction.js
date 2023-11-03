@@ -12,6 +12,7 @@ import {
 	putPlacementService,
 	createNewCompanyService,
 	fecthDataUserAllCompanyService,
+	updateUserCompany,
 } from "./adminService";
 
 // Freelance Waiting
@@ -216,6 +217,7 @@ export const putPlacementAction = async (dispatch, formData, placementId) => {
 export const CREATE_NEW_COMPANY = "CREATE_NEW_COMPANY";
 export const FECTH_DATA_USER_ALL_COMPANY = "FECTH_DATA_USER_ALL_COMPANY";
 export const DELETE_USER_COMPANY = "DELETE_USER_COMPANY";
+export const UPDATE_USER_COMPANY = "UPDATE_USER_COMPANY";
 
 export const createNewCompanyAction = async (dispatch, formData) => {
 	try {
@@ -247,6 +249,18 @@ export const deleteUserCompanyAction = async (dispatch, userId, userRoles) => {
 		dispatch({
 			type: DELETE_USER_COMPANY,
 			payload: { userId, userRoles },
+		});
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const updateUserCompanyAction = async (dispatch, userId, formData) => {
+	try {
+		const result = await updateUserCompany(userId, formData);
+		dispatch({
+			type: UPDATE_USER_COMPANY,
+			payload: result.data.result,
 		});
 	} catch (error) {
 		throw error;

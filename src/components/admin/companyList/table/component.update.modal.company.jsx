@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
+import { useCompanyData } from "../../../../context/admin/company/companyContext";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");
@@ -26,6 +27,7 @@ const steps = [
 ];
 
 const ComponentUpdateModalCompany = ({ isOpen, onRequestClose, item }) => {
+	const { updateUserCompany } = useCompanyData();
 	const [currentStep, setCurrentStep] = React.useState(0);
 	const [isLoading, setLoading] = React.useState(false);
 	const {
@@ -33,10 +35,7 @@ const ComponentUpdateModalCompany = ({ isOpen, onRequestClose, item }) => {
 		handleSubmit,
 		formState: { errors, isValid },
 		trigger,
-		setValue,
 	} = useForm({ mode: "onChange" });
-
-	const controllerData = {};
 
 	const fieldMapping = {
 		raisonSocial: "raisonSocial",
@@ -50,8 +49,8 @@ const ComponentUpdateModalCompany = ({ isOpen, onRequestClose, item }) => {
 	};
 
 	const handleContinueClick = async () => {
-		if (currentStep + 1 < steps.length) {
-			const isValidStep = await trigger(steps[currentStep + 1].fields);
+		if (currentStep + 1 <= steps.length) {
+			const isValidStep = await trigger(steps[currentStep].fields);
 			if (isValidStep) {
 				setCurrentStep((prevStep) => prevStep + 1);
 			}
@@ -64,13 +63,23 @@ const ComponentUpdateModalCompany = ({ isOpen, onRequestClose, item }) => {
 		}
 	};
 
-	const handleConfirmAccept = (data) => {
-		const mergedData = {
-			...item,
-			...controllerData,
-		};
+	const handleConfirmAccept = async (data) => {
+		const formData = {};
+		try {
+			setLoading(true);
+			for (const fieldName in data) {
+				if (fieldMapping[fieldName]) {
+					formData[fieldMapping[fieldName]] = data[fieldName];
+				} else {
+					formData[fieldName] = data[fieldName];
+				}
+			}
 
-		console.log("Données soumises :", mergedData);
+			await updateUserCompany(item._id, formData);
+			setLoading(false);
+		} catch (error) {
+			console.log(error);
+		}
 
 		onRequestClose();
 	};

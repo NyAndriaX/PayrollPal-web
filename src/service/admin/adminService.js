@@ -138,3 +138,12 @@ export const fecthDataUserAllCompanyService = async () => {
 		throw error;
 	}
 };
+
+export const updateUserCompany = async (userId, formData) => {
+	try {
+		const response = await apiUrl.put(`/admin/company/${userId}`, formData);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
