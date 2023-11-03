@@ -1,0 +1,35 @@
+[33mcommit 25f2aebfe7d525d8b3e66e94972d9f4bcd90f432[m[33m ([m[1;36mHEAD -> [m[1;32mdevelopment[m[33m, [m[1;31morigin/development[m[33m)[m
+Author: TsilavinaDevJS <tsilavinaandriamahafaly01@gmail.com>
+Date:   Fri Nov 3 12:31:55 2023 +0300
+
+    features/delete-action-of-company
+
+[33mcommit 69a682ad3ae82b611ad7efca81ee9438eac24e00[m
+Author: TsilavinaDevJS <tsilavinaandriamahafaly01@gmail.com>
+Date:   Fri Nov 3 10:30:09 2023 +0300
+
+    features/UV-5-add-action-of-create-user-company
+
+[33mcommit f15143f16fb36814e54e300e36e5634694308558[m
+Author: TsilavinaDevJS <tsilavinaandriamahafaly01@gmail.com>
+Date:   Thu Nov 2 20:18:16 2023 +0300
+
+    features/UV4-CREATE-MODAL-IN-COMPANY-PAGE
+
+[33mcommit ef8e6c9c1655dd6a1439b5cb734db7bf89d9b2cc[m
+Author: TsilavinaDevJS <tsilavinaandriamahafaly01@gmail.com>
+Date:   Thu Nov 2 19:48:09 2023 +0300
+
+    features/UV2-ADD-SERVICE-SETTINGS-ADMIN
+
+[33mcommit f1a38b9fa68c512c3eeee99c80b390b118704274[m
+Author: TsilavinaDevJS <tsilavinaandriamahafaly01@gmail.com>
+Date:   Thu Nov 2 15:52:21 2023 +0300
+
+    features/UV-3-PLACEMENT
+
+[33mcommit af84e7a637f4914d382a86966936d980ed8927bd[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: TsilavinaDevJS <tsilavinaandriamahafaly01@gmail.com>
+Date:   Tue Oct 31 10:50:53 2023 +0300
+
+    features/init-project
