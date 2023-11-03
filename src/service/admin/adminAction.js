@@ -10,6 +10,7 @@ import {
 	addNewPlacementService,
 	deletePlacementService,
 	putPlacementService,
+	createNewCompanyService,
 } from "./adminService";
 
 // Freelance Waiting
@@ -204,6 +205,21 @@ export const putPlacementAction = async (dispatch, formData, placementId) => {
 		dispatch({
 			type: PUT_PLACEMENT,
 			payload: result.data.result,
+		});
+	} catch (error) {
+		throw error;
+	}
+};
+
+//ACTION : Create user of company
+export const CREATE_NEW_COMPANY = "CREATE_NEW_COMPANY";
+
+export const createNewCompanyAction = async (dispatch, formData) => {
+	try {
+		const result = await createNewCompanyService(formData);
+		dispatch({
+			type: CREATE_NEW_COMPANY,
+			payload: result.data,
 		});
 	} catch (error) {
 		throw error;

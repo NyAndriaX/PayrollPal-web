@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { companyReducer } from "./companyReducer";
-import { fetchAllUsersAction } from "../../../service/admin/adminAction";
+import { createNewCompanyAction } from "../../../service/admin/adminAction";
 
 const initialState = {
 	companyList: [],
@@ -12,19 +12,16 @@ export const CompanyDataContext = createContext();
 export const CompanyProvider = ({ children }) => {
 	const [data, dispatch] = useReducer(companyReducer, initialState);
 
-	React.useEffect(() => {
-		fetchAllUsersAction(dispatch);
-	}, []);
+	// React.useEffect(() => {
+	// 	fetchAllUsersAction(dispatch);
+	// }, []);
 
 	return (
 		<CompanyDataContext.Provider
 			value={{
 				data,
-				// filterDataInFreelance: () => filterDataInFreelanceAction(dispatch),
-				// filterDataInCompany: () => filterDataInCompanyAction(dispatch),
-				// seeAllData: () => seeAllDataAction(dispatch),
-				// deleteUser: (userId, userRoles) =>
-				// 	deleteUserAction(dispatch, userId, userRoles),
+				createNewCompany: (formData) =>
+					createNewCompanyAction(dispatch, formData),
 			}}>
 			{children}
 		</CompanyDataContext.Provider>
@@ -32,5 +29,5 @@ export const CompanyProvider = ({ children }) => {
 };
 
 export const useCompanyData = () => {
-	return useContext(DashboardDataContext);
+	return useContext(CompanyDataContext);
 };

@@ -2,19 +2,41 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import ComponentModalFormCompany from "./component.modal.form.company";
+import { useCompanyData } from "../../../../context/admin/company/companyContext";
 
 const ComponentCardCompany = () => {
+	const [isLoading, setLoading] = React.useState(false);
+	const { createNewCompany } = useCompanyData();
 	const [isOpenModalFormCompany, setOpenModalFormCompany] =
 		React.useState(false);
 
-	const onSubmit = (data) => {
-		console.log(data);
+	const transformData = (data) => ({
+		raisonSocial: data.raisonSocial || "",
+		adresseEntreprise: data.adresseDeLEntreprise || "",
+		numeroIdentificationFiscale: data.numeroDIdentificationFiscal || "",
+		nomRepresentant: data.nomDuRepresentant || "",
+		prenomRepresentant: data.prenomDuRepresentant || "",
+		emailRepresentant: data.emailDuRepresentant || "",
+		telRepresentant: data.téléphoneDuRepresentant || "",
+		adresseRepresentant: data.adresseDuRepresentant || "",
+	});
+
+	const onSubmit = async (data) => {
+		const formData = transformData(data);
+		try {
+			setLoading(true);
+			await createNewCompany(formData);
+			setLoading(false);
+			setOpenModalFormCompany(false);
+		} catch (error) {
+			setLoading(false);
+			console.log(error);
+		}
 	};
 
 	const openModalFormCompany = () => {
 		setOpenModalFormCompany(true);
 	};
-
 	const closeOpenModalFormCompany = () => {
 		setOpenModalFormCompany(false);
 	};
@@ -42,6 +64,7 @@ const ComponentCardCompany = () => {
 				</div>
 			</div>
 			<ComponentModalFormCompany
+				isLoading={isLoading}
 				isOpen={isOpenModalFormCompany}
 				onRequestClose={closeOpenModalFormCompany}
 				onSubmit={onSubmit}

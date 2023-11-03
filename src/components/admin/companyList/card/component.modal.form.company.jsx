@@ -25,9 +25,13 @@ const steps = [
 	},
 ];
 
-const ComponentModalFormCompany = ({ isOpen, onRequestClose, onSubmit }) => {
+const ComponentModalFormCompany = ({
+	isOpen,
+	onRequestClose,
+	onSubmit,
+	isLoading,
+}) => {
 	const [currentStep, setCurrentStep] = React.useState(0);
-	const [isLoading, setIsLoading] = React.useState(false);
 	const [errorRequestMessage, setErrorRequestMessage] = React.useState("");
 	const {
 		control,
@@ -36,21 +40,6 @@ const ComponentModalFormCompany = ({ isOpen, onRequestClose, onSubmit }) => {
 		trigger,
 		getValues,
 	} = useForm({ mode: "onChange" });
-
-	const transformData = (data) => {
-		const transformedData = {
-			raisonSocial: data.raisonSocial || "",
-			adresseEntreprise: data.adresseDeLEntreprise || "",
-			numeroIdentificationFiscale: data.numeroDIdentificationFiscal || "",
-			nomRepresentant: data.nomDuRepresentant || "",
-			emailRepresentant: data.emailDuRepresentant || "",
-			prenomRepresentant: data.prenomDuRepresentant || "",
-			telRepresentant: data.téléphoneDuRepresentant || "",
-			adresseRepresentant: data.adresseDuRepresentant || "",
-		};
-
-		return transformedData;
-	};
 
 	const handleContinueClick = async () => {
 		if (currentStep + 1 <= steps.length) {
