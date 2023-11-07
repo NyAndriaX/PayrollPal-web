@@ -58,18 +58,51 @@ const SidebarLeft = () => {
 						justifyContent: "center",
 						alignItems: "center",
 					}}>
-					<p className="p-user-name" style={{ flex: 1 }}>
-						{user.nom} {user.prenom}
-					</p>
-					<Gravatar
-						email={user.email}
-						size={35}
-						style={{
-							borderRadius: "50%",
-							overflow: "hidden",
-							marginLeft: "auto",
-						}}
-					/>
+					{user.roles === "ROLES_COMPANY" ? (
+						<>
+							<p
+								className="p-user-name"
+								style={{
+									flex: 1,
+									textAlign: "end",
+									display: "block",
+									marginRight: "1rem",
+								}}>
+								{user.nomRepresentant} {user.prenomRepresentant}
+							</p>
+							<Gravatar
+								email={user.emailRepresentant}
+								size={35}
+								style={{
+									borderRadius: "50%",
+									overflow: "hidden",
+									marginLeft: "auto",
+								}}
+							/>{" "}
+						</>
+					) : (
+						<>
+							<p
+								className="p-user-name"
+								style={{
+									flex: 1,
+									textAlign: "end",
+									display: "block",
+									marginRight: "1rem",
+								}}>
+								{user.nom} {user.prenom}
+							</p>
+							<Gravatar
+								email={user.email}
+								size={35}
+								style={{
+									borderRadius: "50%",
+									overflow: "hidden",
+									marginLeft: "auto",
+								}}
+							/>
+						</>
+					)}
 				</div>
 			</div>
 			<SidebarMenu

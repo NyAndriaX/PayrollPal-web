@@ -44,8 +44,10 @@ const ComponentCardCompany = () => {
 
 	return (
 		<>
-			<div className="row">
-				<div className="card" style={{ backgroundColor: "rgb(255 249 240)" }}>
+			<div className="justify-space-between" style={{ alignItems: "stretch" }}>
+				<div
+					className="card"
+					style={{ backgroundColor: "rgb(255 249 240)", maxWidth: "initial" }}>
 					<p className="p-h3" style={{ color: "#ff8a00" }}>
 						<FontAwesomeIcon icon={faBell} /> À connaître
 					</p>
@@ -54,7 +56,7 @@ const ComponentCardCompany = () => {
 						solutions professionnelles
 					</p>
 				</div>
-				<div className="card">
+				<div className="card" style={{ maxWidth: "initial" }}>
 					<p className="p-h3-secondary">Nombre des entreprise</p>
 					<div className="row-btn-2">
 						<p className="p-indicateur-secondary">{nbrCompany}</p>

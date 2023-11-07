@@ -57,9 +57,19 @@ const ComponentTableCompanyList = () => {
 						</thead>
 						<tbody>
 							{searchText === "" ? (
-								companyList.map((item) => (
-									<ComponentTableCompany key={item._id} item={item} />
-								))
+								companyList.length !== 0 ? (
+									companyList.map((item) => (
+										<ComponentTableCompany key={item._id} item={item} />
+									))
+								) : (
+									<td colspan={5}>
+										<p
+											className="p-h3 text-center"
+											style={{ fontSize: "0.85rem" }}>
+											Aucune entreprise trouvée.
+										</p>
+									</td>
+								)
 							) : filteredCompanies.length > 0 ? (
 								filteredCompanies.map((item) => (
 									<ComponentTableCompany key={item._id} item={item} />

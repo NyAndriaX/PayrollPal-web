@@ -1,13 +1,20 @@
-import React, { useState } from "react";
-import { ComponentTableSstyled } from "./component.table.styled";
-import ComponentTable from "./component.table";
-import { DashboardDataContext } from "../../../../context/admin/dashboard/dashboardContext";
+import React from "react";
+import { ComponentDashboardTableCompanyStyled } from "./component.dashboard.table.company.styled";
+import ComponentDashboardTableCompany from "./component.dashoard.table.company";
 import ConfirmationDeleteModal from "../../../common/ConfirmationDeleteModal";
 
-const ComponentTableList = () => {
-	const { data, seeAllData, deleteUser } =
-		React.useContext(DashboardDataContext);
+const ComponentDashboardTableListCompany = () => {
 	const [isDeleteModalOpen, setDeleteModalOpen] = React.useState(false);
+
+	const data = [
+		{
+			_id: 1,
+			nom: "Tsilavina",
+			prenom: "Henintsoa",
+			email: "tsilavinaandriamahafaly01@gmail.com",
+			roles: "ROLES_FREELANCE",
+		},
+	];
 
 	const openDeleteModalOpen = () => {
 		setDeleteModalOpen(true);
@@ -17,13 +24,11 @@ const ComponentTableList = () => {
 	};
 
 	return (
-		<ComponentTableSstyled>
+		<ComponentDashboardTableCompanyStyled>
 			<div className="content-table">
 				<div className="justify-space-between">
 					<p className="p-title-table">Listes de toutes les utilisateurs</p>
-					<p className="p-a" onClick={seeAllData}>
-						Voir tous
-					</p>
+					<p className="p-a">Voir tous</p>
 				</div>
 				<div className="table-container">
 					<table>
@@ -37,10 +42,10 @@ const ComponentTableList = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{data.allUsers.length > 0 ? (
-								data.allUsers.map((item) => (
+							{data.length > 0 ? (
+								data.map((item) => (
 									<>
-										<ComponentTable
+										<ComponentDashboardTableCompany
 											key={item._id}
 											data={item}
 											openDeleteModalOpen={openDeleteModalOpen}
@@ -67,8 +72,8 @@ const ComponentTableList = () => {
 					</table>
 				</div>
 			</div>
-		</ComponentTableSstyled>
+		</ComponentDashboardTableCompanyStyled>
 	);
 };
 
-export default ComponentTableList;
+export default ComponentDashboardTableListCompany;

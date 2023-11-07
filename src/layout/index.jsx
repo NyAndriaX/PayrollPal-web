@@ -33,14 +33,32 @@ const pageConfig = {
 			component: lazy(() => import("../pages/admin/settings/setting.page.jsx")),
 		},
 	],
-	ROLES_FREELANCE: [
-		// {
-		// 	path: "/",
-		// 	component: () => import("../pages/freelancer/dashboard/dashboard"),
-		// },
-	],
 	ROLES_COMPANY: [
-		// { path: "/", component: () => import("../pages/company/company.page") },
+		{
+			path: "/",
+			component: lazy(() =>
+				import("../pages/company/dashboard/dashboard.page.company.jsx")
+			),
+		},
+		{
+			path: "/dashboard",
+			component: lazy(() =>
+				import("../pages/company/dashboard/dashboard.page.company.jsx")
+			),
+		},
+		{
+			path: "/Paramétre",
+			component: lazy(() =>
+				import("../pages/company/settings/settings.page.company.jsx")
+			),
+		},
+	],
+	ROLES_FREELANCE: [
+		{
+			path: "/",
+			component: () =>
+				import("../pages/company/dashboard/dashboard.page.company.jsx"),
+		},
 	],
 };
 

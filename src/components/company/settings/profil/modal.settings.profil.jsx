@@ -4,7 +4,7 @@ import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 
-const SettingsFormModal = ({ isOpen, onRequestClose, onSubmit, user }) => {
+const ModalSettingsProfil = ({ isOpen, onRequestClose, onSubmit, user }) => {
 	const {
 		control,
 		handleSubmit,
@@ -32,76 +32,63 @@ const SettingsFormModal = ({ isOpen, onRequestClose, onSubmit, user }) => {
 			<p className="p-h1">Profil</p>
 			<p className="p-h3 text-center">Editer mon profile</p>
 			<form onSubmit={handleSubmit(handleConfirmAccept)}>
-				<div className="data-ignores">
-					<Controller
-						name="_id"
-						control={control}
-						defaultValue={user._id}
-						render={({ field }) => (
-							<input type="hidden" className="input" {...field} />
-						)}
-					/>
-				</div>
 				<div>
-					<p className="p-label">Nom</p>
+					<p className="p-label">Nom du representant</p>
 					<Controller
-						name="nom"
+						name="nomRepresentant"
 						control={control}
-						defaultValue={user.nom}
+						defaultValue={user.nomRepresentant}
 						render={({ field }) => <input className="input" {...field} />}
 						rules={{
-							required: "Nom is required",
+							required: "Nom du representant is required",
 						}}
 					/>
-					{errors.nom && <p className="p-error">{errors.nom.message}</p>}
+					{errors.nomRepresentant && (
+						<p className="p-error">{errors.nomRepresentant.message}</p>
+					)}
 				</div>
 				<div>
-					<p className="p-label">Prenom</p>
+					<p className="p-label">Prenom du representant</p>
 					<Controller
-						name="prenom"
+						name="prenomRepresentant"
 						control={control}
-						defaultValue={user.prenom}
+						defaultValue={user.prenomRepresentant}
 						render={({ field }) => <input className="input" {...field} />}
 						rules={{
-							required: "prenom is required",
+							required: "prenom du representant is required",
 						}}
 					/>
-					{errors.prenom && <p className="p-error">{errors.prenom.message}</p>}
+					{errors.prenomRepresentant && (
+						<p className="p-error">{errors.prenomRepresentant.message}</p>
+					)}
 				</div>
 				<div>
-					<p className="p-label">Email</p>
+					<p className="p-label">Email du representant</p>
 					<Controller
-						name="email"
+						name="emailRepresentant"
 						control={control}
-						defaultValue={user.email}
+						defaultValue={user.emailRepresentant}
 						render={({ field }) => <input className="input" {...field} />}
 						rules={{
-							required: "Email is required",
+							required: "Email du representant is required",
 							pattern: {
 								value: /^\S+@\S+$/i,
 								message: "Invalid email address",
 							},
 						}}
 					/>
-					{errors.email && <p className="p-error">{errors.email.message}</p>}
-				</div>
-
-				<Controller
-					name="password"
-					control={control}
-					defaultValue={user.password}
-					render={({ field }) => (
-						<input type="hidden" className="input" {...field} />
+					{errors.emailRepresentant && (
+						<p className="p-error">{errors.emailRepresentant.message}</p>
 					)}
-				/>
-				<p className="p-label">Roles</p>
+				</div>
+				<p className="p-label">Adresse du representant</p>
 
 				<Controller
-					name="roles"
+					name="adresseRepresentant"
 					control={control}
-					defaultValue={user.roles}
+					defaultValue={user.adresseRepresentant}
 					render={({ field }) => (
-						<input type="text" disabled className="input" {...field} />
+						<input type="text" className="input" {...field} />
 					)}
 				/>
 				<div className="justify-space-between">
@@ -120,4 +107,4 @@ const SettingsFormModal = ({ isOpen, onRequestClose, onSubmit, user }) => {
 	);
 };
 
-export default SettingsFormModal;
+export default ModalSettingsProfil;

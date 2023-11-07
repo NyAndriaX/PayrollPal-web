@@ -33,7 +33,12 @@ const SidebarMenu = ({
 			"listes_des_entreprises",
 			"parametre",
 		],
-		ROLES_ENTREPRISE: ["dashboard", "/parametre"],
+		ROLES_COMPANY: [
+			"Dashboard",
+			"Validation des jours",
+			"Freelances",
+			"Paramétre",
+		],
 	};
 
 	const userRole = user.roles;
@@ -60,7 +65,7 @@ const SidebarMenu = ({
 				<div className="section-menu-profil">
 					{user.roles === "ROLES_COMPANY" ? (
 						<>
-							<p className="p-user-title-large">Company Page</p>
+							<p className="p-user-title-large">{user.raisonSocial}</p>
 
 							<p className="p-user-title-medium">
 								{user.nomRepresentant} {user.prenomRepresentant}

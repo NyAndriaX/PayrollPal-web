@@ -94,6 +94,26 @@ export const updatedProfilAction = async (dispatch, formData) => {
 	}
 };
 
+//updated settings company
+
+export const UPDATED_SETTINGS_COMPANY = "UPDATED_SETTINGS_COMPANY";
+
+export const updatedProfilForCompanyAction = async (
+	dispatch,
+	userId,
+	formData
+) => {
+	try {
+		const response = await apiUrl.post(`/company/settings/${userId}`, formData);
+		dispatch({
+			type: UPDATED_SETTINGS_COMPANY,
+			payload: response?.data.result,
+		});
+	} catch (error) {
+		throw error;
+	}
+};
+
 // export const checkedPasswordAction = (data) => {
 // 	return async (dispatch) => {
 // 		try {
