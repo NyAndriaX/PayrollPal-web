@@ -1,25 +1,10 @@
 import styled from "styled-components";
 
 export const ComponentDashboardTableCompanyStyled = styled.div`
-	th[name="Nom"] {
-		width: 20%;
-		min-width: 150px;
+	td {
+		text-align: end;
 	}
-	th[name="Prénom"] {
-		width: 15%;
-		min-width: 120px;
-	}
-	th[name="Email"] {
-		width: 15%;
-		min-width: 120px;
-	}
-	th[name="Rôles"] {
-		width: 12%;
-		min-width: 90px;
-	}
-	th[name="Actions"] {
-		width: 12%;
-		min-width: 90px;
+	th {
 		text-align: end;
 	}
 	.content-btn-action {

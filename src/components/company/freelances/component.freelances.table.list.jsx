@@ -1,16 +1,15 @@
-import React from "react";
-import { ComponentDashboardTableCompanyStyled } from "./component.dashboard.table.company.styled";
-import ComponentDashboardTableCompany from "./component.dashoard.table.company";
-import { useCompanyDashboardData } from "../../../../context/company/dashboard/CompanyDashboardContext";
+import { ComponentFreelancesTableStyled } from "./component.freelances.table.styled";
+import { useCompanyDashboardData } from "../../../context/company/dashboard/CompanyDashboardContext";
+import ComponentFreelancesTable from "./component.freelances.table";
 
-const ComponentDashboardTableListCompany = () => {
+const ComponentFreelancesTableList = () => {
 	const { companyData, deleteOnePlacementInThisEntreprise } =
 		useCompanyDashboardData();
 
 	const { freelances } = companyData;
 
 	return (
-		<ComponentDashboardTableCompanyStyled>
+		<ComponentFreelancesTableStyled>
 			<div className="content-table">
 				<div className="justify-space-between">
 					<p className="p-title-table">Listes des Freelanceurs</p>
@@ -28,10 +27,10 @@ const ComponentDashboardTableListCompany = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{freelances.slice(0, 10).length > 0 ? (
+							{freelances.length > 0 ? (
 								freelances.map((item) => (
 									<>
-										<ComponentDashboardTableCompany
+										<ComponentFreelancesTable
 											key={item.id}
 											data={item}
 											deleteOnePlacementInThisEntreprise={
@@ -53,8 +52,7 @@ const ComponentDashboardTableListCompany = () => {
 					</table>
 				</div>
 			</div>
-		</ComponentDashboardTableCompanyStyled>
+		</ComponentFreelancesTableStyled>
 	);
 };
-
-export default ComponentDashboardTableListCompany;
+export default ComponentFreelancesTableList;

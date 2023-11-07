@@ -1,9 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
-import ConfirmationDeleteModal from "../../../common/ConfirmationDeleteModal";
+import ConfirmationDeleteModal from "../../common/ConfirmationDeleteModal";
 
-const ComponentDashboardTableCompany = ({
+const ComponentFreelancesTable = ({
 	data,
 	deleteOnePlacementInThisEntreprise,
 }) => {
@@ -54,5 +54,4 @@ const ComponentDashboardTableCompany = ({
 		</>
 	);
 };
-
-export default ComponentDashboardTableCompany;
+export default ComponentFreelancesTable;

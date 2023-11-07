@@ -42,7 +42,7 @@ const ComponentTablePlacement = ({ item }) => {
 	return (
 		<>
 			<tr key={item._id}>
-				<td>{item.entreprise?.raisonSocial}</td>
+				<td style={{ textAlign: "start" }}>{item.entreprise?.raisonSocial}</td>
 				<td>
 					{item.Freelance?.nom} {item.Freelance?.prenom}
 				</td>

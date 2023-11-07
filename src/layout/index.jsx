@@ -52,6 +52,12 @@ const pageConfig = {
 				import("../pages/company/settings/settings.page.company.jsx")
 			),
 		},
+		{
+			path: "/Freelances",
+			component: lazy(() =>
+				import("../pages/company/freelances/freelances.page.jsx")
+			),
+		},
 	],
 	ROLES_FREELANCE: [
 		{

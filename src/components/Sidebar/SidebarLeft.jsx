@@ -13,6 +13,8 @@ const pathTitles = {
 	"/Validation%20des%20freelances": "Validation des Freelances",
 	"/Placement": "Placement",
 	"/Param%C3%A9tre": "Profil et Entreprise",
+	"/Validation%20des%20jours": "Validation des jours",
+	"/Freelances": "Freelances",
 };
 
 const SidebarLeft = () => {

@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const ComponentTableCompanyStyled = styled.div`
+export const ComponentFreelancesTableStyled = styled.div`
 	td {
 		text-align: end;
 	}
@@ -35,6 +35,6 @@ export const ComponentTableCompanyStyled = styled.div`
 		border: 1px solid #eaeaea;
 		border-radius: 8px;
 		padding: 10px;
-		background-color: white;
+		background-color: white !important;
 	}
 `;

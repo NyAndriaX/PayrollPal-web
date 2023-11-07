@@ -1,4 +1,8 @@
-const ComponenetDashboardCompany = () => {
+import { useCompanyDashboardData } from "../../../../context/company/dashboard/CompanyDashboardContext";
+
+const ComponentDashboardCompany = () => {
+	const { companyData } = useCompanyDashboardData();
+	const { nbrFreelancer } = companyData;
 	return (
 		<>
 			<div className="justify-space-between">
@@ -7,7 +11,7 @@ const ComponenetDashboardCompany = () => {
 					<p
 						className="p-indicateur-primary text-center"
 						style={{ color: "black" }}>
-						O
+						{nbrFreelancer}
 					</p>
 				</div>
 				<div className="card" style={{ maxWidth: "initial" }}>
@@ -21,4 +25,4 @@ const ComponenetDashboardCompany = () => {
 		</>
 	);
 };
-export default ComponenetDashboardCompany;
+export default ComponentDashboardCompany;

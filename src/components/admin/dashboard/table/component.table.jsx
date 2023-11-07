@@ -4,7 +4,9 @@ import { faTrash, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 const ComponentTable = ({ data, openDeleteModalOpen }) => {
 	return (
 		<tr key={data.id}>
-			<td>{data.nom ? data.nom : data.nomRepresentant}</td>
+			<td style={{ textAlign: "start" }}>
+				{data.nom ? data.nom : data.nomRepresentant}
+			</td>
 			<td>{data.prenom ? data.prenom : data.prenomRepresentant}</td>
 			<td>{data.email ? data.email : data.emailRepresentant}</td>
 			<td>

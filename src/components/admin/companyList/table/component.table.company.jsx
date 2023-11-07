@@ -29,7 +29,7 @@ const ComponentTableCompany = ({ item }) => {
 	return (
 		<>
 			<tr key={item._id}>
-				<td>{item.raisonSocial}</td>
+				<td style={{ textAlign: "start" }}>{item.raisonSocial}</td>
 				<td>
 					{item.nomRepresentant} {item.prenomRepresentant}
 				</td>

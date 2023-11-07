@@ -19,7 +19,7 @@ const ComponentTablePlacementList = () => {
 					<table>
 						<thead>
 							<tr>
-								<th>Raison social</th>
+								<th style={{ textAlign: "start" }}>Raison social</th>
 								<th>Freelanceur</th>
 								<th>Freelanceur Chasseur</th>
 								<th name="FreelanceurChasseurRevenu">Revenu mensuel</th>

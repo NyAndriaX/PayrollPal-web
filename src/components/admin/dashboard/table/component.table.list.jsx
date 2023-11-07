@@ -29,7 +29,9 @@ const ComponentTableList = () => {
 					<table>
 						<thead>
 							<tr>
-								<th name="Nom">Nom</th>
+								<th name="Nom" style={{ textAlign: "start" }}>
+									Nom
+								</th>
 								<th name="Prénom">Prénom</th>
 								<th name="Email">Email</th>
 								<th name="Rôles">Rôles</th>
