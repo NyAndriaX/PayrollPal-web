@@ -24,5 +24,39 @@ const deleteOnePlacementInThisEntrepriseService = async (
 		throw error;
 	}
 };
+const fetchAllDayDumpByFreelanceService = async (idEntreprise) => {
+	try {
+		const response = apiUrl.get(`/company/dayValidity/${idEntreprise}`);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
+const validationDayDumpService = async (idDayDump, idPlacement) => {
+	try {
+		const response = apiUrl.get(
+			`/company/validationDeJours/${idDayDump}/${idPlacement}`
+		);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
+const refusDayDumpService = async (idDayDump, idPlacement) => {
+	try {
+		const response = apiUrl.get(
+			`/company/refusDeJours/${idDayDump}/${idPlacement}`
+		);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
 
-export { fetchAllFreelancerService, deleteOnePlacementInThisEntrepriseService };
+export {
+	fetchAllFreelancerService,
+	deleteOnePlacementInThisEntrepriseService,
+	fetchAllDayDumpByFreelanceService,
+	validationDayDumpService,
+	refusDayDumpService,
+};

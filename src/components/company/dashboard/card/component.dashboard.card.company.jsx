@@ -1,8 +1,10 @@
 import { useCompanyDashboardData } from "../../../../context/company/dashboard/CompanyDashboardContext";
+import { useNavigate } from "react-router-dom";
 
 const ComponentDashboardCompany = () => {
+	const navigate = useNavigate();
 	const { companyData } = useCompanyDashboardData();
-	const { nbrFreelancer } = companyData;
+	const { nbrFreelancer, nrbDayValidity } = companyData;
 	return (
 		<>
 			<div className="justify-space-between">
@@ -17,8 +19,12 @@ const ComponentDashboardCompany = () => {
 				<div className="card" style={{ maxWidth: "initial" }}>
 					<p className="p-h3-secondary">Jours à valider</p>
 					<div className="row-btn-2">
-						<p className="p-indicateur-secondary">0</p>
-						<button className="btn-secondary">valider les jours</button>
+						<p className="p-indicateur-secondary">{nrbDayValidity}</p>
+						<button
+							className="btn-secondary"
+							onClick={() => navigate("/Validation%20des%20jours")}>
+							valider les jours
+						</button>
 					</div>
 				</div>
 			</div>

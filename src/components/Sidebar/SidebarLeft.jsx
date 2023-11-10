@@ -15,6 +15,7 @@ const pathTitles = {
 	"/Param%C3%A9tre": "Profil et Entreprise",
 	"/Validation%20des%20jours": "Validation des jours",
 	"/Freelances": "Freelances",
+	"/D%C3%A9p%C3%B4t%20des%20jours": "Dépôt des jours",
 };
 
 const SidebarLeft = () => {

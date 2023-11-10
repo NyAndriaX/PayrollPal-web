@@ -27,12 +27,7 @@ const SidebarMenu = ({
 			"Placement",
 			"Paramétre",
 		],
-		ROLES_FREELANCE: [
-			"dashboard",
-			"validation_des_jours",
-			"listes_des_entreprises",
-			"parametre",
-		],
+		ROLES_FREELANCE: ["Dashboard", "Dépôt des jours", "Paramétre"],
 		ROLES_COMPANY: [
 			"Dashboard",
 			"Validation des jours",
@@ -97,6 +92,9 @@ const SidebarMenu = ({
 								)}
 								{route === "Validation des freelances" && (
 									<FontAwesomeIcon icon={faUser} />
+								)}
+								{route === "Dépôt des jours" && (
+									<FontAwesomeIcon icon={faFileSignature} />
 								)}
 								{route === "Placement" && (
 									<FontAwesomeIcon icon={faFileSignature} />

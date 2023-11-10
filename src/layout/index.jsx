@@ -47,6 +47,12 @@ const pageConfig = {
 			),
 		},
 		{
+			path: "/Validation des jours",
+			component: lazy(() =>
+				import("../pages/company/dayValidity/dayValidity.page.company.jsx")
+			),
+		},
+		{
 			path: "/Paramétre",
 			component: lazy(() =>
 				import("../pages/company/settings/settings.page.company.jsx")
@@ -62,8 +68,27 @@ const pageConfig = {
 	ROLES_FREELANCE: [
 		{
 			path: "/",
-			component: () =>
-				import("../pages/company/dashboard/dashboard.page.company.jsx"),
+			component: lazy(() =>
+				import("../pages/freelancer/dahboard/dashboard.page.freelancer.jsx")
+			),
+		},
+		{
+			path: "/dashboard",
+			component: lazy(() =>
+				import("../pages/freelancer/dahboard/dashboard.page.freelancer.jsx")
+			),
+		},
+		{
+			path: "/Dépôt des jours",
+			component: lazy(() =>
+				import("../pages/freelancer/dayDump/dayDump.page.freelance.jsx")
+			),
+		},
+		{
+			path: "/Paramétre",
+			component: lazy(() =>
+				import("../pages/freelancer/settings/settings.page.jsx")
+			),
 		},
 	],
 };

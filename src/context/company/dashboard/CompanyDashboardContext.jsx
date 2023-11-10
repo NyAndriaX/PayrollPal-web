@@ -3,12 +3,13 @@ import { companyDashboardReducer } from "./CompanyDashboardReducer";
 import {
 	fetchAllFreelancerAction,
 	deleteOnePlacementInThisEntrepriseAction,
+	fetchAllDayDumpByFreelanceAction,
 } from "../../../service/company/companyAction";
 import { useUserData } from "../../authentification/userContext";
 
 const initialState = {
 	freelances: [],
-	nrbDateValidity: 0,
+	nrbDayValidity: 0,
 	nbrFreelancer: 0,
 };
 
@@ -17,12 +18,14 @@ export const CompanyDashboardDataContext = createContext();
 export const CompanyDashboardProvider = ({ children }) => {
 	const { data } = useUserData();
 	const { infosUsers } = data;
+	const idEntreprise = infosUsers?._id;
 	const [companyData, dispatch] = useReducer(
 		companyDashboardReducer,
 		initialState
 	);
 
 	React.useEffect(() => {
+		fetchAllDayDumpByFreelanceAction(dispatch, idEntreprise);
 		fetchAllFreelancerAction(dispatch, infosUsers._id);
 	}, []);
 
