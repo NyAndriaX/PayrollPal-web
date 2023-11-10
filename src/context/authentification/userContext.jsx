@@ -2,6 +2,9 @@ import React, { createContext, useContext, useReducer } from "react";
 import {
 	checkedEmailAction,
 	loginAction,
+	signupFreelanceAction,
+	signupCompanyAction,
+	validationEmailAction,
 	fetchDataInfosData,
 	logoutAction,
 	updatedProfilAction,
@@ -34,6 +37,9 @@ const UserProvider = ({ children }) => {
 					updatedSettingsUserFreelancerAction(dispatch, userId, userData),
 				checkedEmail: (email) => checkedEmailAction(dispatch, email),
 				login: (userData) => loginAction(dispatch, userData),
+				signupCompany: (data) => signupCompanyAction(data),
+				signupFreelance: (data) => signupFreelanceAction(data),
+				validationEmail: (data) => validationEmailAction(data),
 				logout: () => logoutAction(dispatch),
 			}}>
 			{children}

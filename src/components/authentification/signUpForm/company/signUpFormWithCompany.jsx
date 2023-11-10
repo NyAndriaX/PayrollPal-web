@@ -1,6 +1,6 @@
 import React from "react";
+import { useUserData } from "../../../../context/authentification/userContext";
 import { useForm, Controller } from "react-hook-form";
-// import { authActions } from "../../../../service/auth";
 import { useNavigate } from "react-router-dom";
 
 const steps = [
@@ -34,6 +34,7 @@ const SignUpFormWidthCompany = () => {
 		trigger,
 		getValues,
 	} = useForm({ mode: "onChange" });
+	const { signupCompany } = useUserData();
 	const navigate = useNavigate();
 	const [currentStep, setCurrentStep] = React.useState(0);
 	const [isLoading, setIsLoading] = React.useState(false);
@@ -83,21 +84,19 @@ const SignUpFormWidthCompany = () => {
 	};
 
 	const onSubmit = async (data) => {
-		// const resultTransformData = transformData(data);
-		// setIsLoading(true);
-		// try {
-		// 	const sendData = await authActions.userRegisterCompany(
-		// 		resultTransformData
-		// 	);
-		// 	const dataEmailEncoded = encodeURIComponent(
-		// 		JSON.stringify(resultTransformData.emailRepresentant)
-		// 	);
-		// 	navigate(`/signup/confirmation_email?e=${dataEmailEncoded}`);
-		// 	setIsLoading(false);
-		// } catch (error) {
-		// 	setIsLoading(false);
-		// 	setErrorRequestMessage(error.response.data.error);
-		// }
+		const resultTransformData = transformData(data);
+		setIsLoading(true);
+		try {
+			await signupCompany(resultTransformData);
+			const dataEmailEncoded = encodeURIComponent(
+				JSON.stringify(resultTransformData.emailRepresentant)
+			);
+			navigate(`/signup/confirmation_email?e=${dataEmailEncoded}`);
+			setIsLoading(false);
+		} catch (error) {
+			setIsLoading(false);
+			setErrorRequestMessage(error.response.data.error);
+		}
 	};
 
 	return (

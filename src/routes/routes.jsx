@@ -2,14 +2,14 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import SignInPage from "../pages/authentification/signInPage/signInPage.jsx";
 import SignUpPage from "../pages/authentification/signUpPage/indexPage.jsx";
-import ValidationEmail from "../components/authentification/validationEmail/validationEmail.jsx";
+import ValidationEmailPage from "../pages/authentification/validationEmail/validationEmail.page.jsx";
 import { useUserData } from "../context/authentification/userContext.jsx";
 import HomeLayout from "../layout";
 
 const routes = [
 	{
 		path: "/signup/confirmation_email",
-		element: <ValidationEmail />,
+		element: <ValidationEmailPage />,
 		isAuthPage: true,
 		isPrivate: false,
 	},

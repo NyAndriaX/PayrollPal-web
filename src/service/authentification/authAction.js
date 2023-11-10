@@ -11,8 +11,6 @@ import jwt_decode from "jwt-decode";
 // export const AUTH_VALIDATION_EMAIL = "AUTH_VALIDATION_EMAIL";
 // export const AUTH_CHECKED_EMAIL = "AUTH_CHECKED_EMAIL";
 // export const AUTH_CHECKED_PASSWORD = "AUTH_CHECKED_PASSWORD";
-// export const AUTH_SIGNUP_COMPANY = "AUTH_SIGNUP_COMPANY";
-// export const AUTH_SIGNUP_FREELANCE = "AUTH_SIGNUP_FREELANCE";
 
 export const FETCH_DATA_IN_SESSION_STORAGE = "FETCH_DATA_IN_SESSION_STORAGE ";
 export const LOGOUT_USER = "LOGOUT_USER";
@@ -30,7 +28,27 @@ export const checkedEmailAction = async (dispatch, data) => {
 	try {
 		await apiUrl.post("/auth/login/checkedEmail", data);
 	} catch (error) {
-		console.log(error);
+		throw error;
+	}
+};
+export const signupFreelanceAction = async (data) => {
+	try {
+		await apiUrl.post("/auth/signup/freelance", data);
+	} catch (error) {
+		throw error;
+	}
+};
+export const signupCompanyAction = async (data) => {
+	try {
+		await apiUrl.post("/auth/signup/company", data);
+	} catch (error) {
+		throw error;
+	}
+};
+export const validationEmailAction = async (data) => {
+	try {
+		await apiUrl.post("/auth/signup/validation_email", data);
+	} catch (error) {
 		throw error;
 	}
 };

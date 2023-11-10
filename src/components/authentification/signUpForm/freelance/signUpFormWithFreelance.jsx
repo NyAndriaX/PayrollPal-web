@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
+import { useUserData } from "../../../../context/authentification/userContext";
 // import { authActions } from "../../../../service/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -36,6 +37,7 @@ const SignUpFormWidthFreelance = () => {
 		trigger,
 		getValues,
 	} = useForm({ mode: "onChange" });
+	const { signupFreelance } = useUserData();
 
 	const navigate = useNavigate();
 	const [currentStep, setCurrentStep] = React.useState(0);
@@ -90,20 +92,17 @@ const SignUpFormWidthFreelance = () => {
 	};
 
 	const onSubmit = async (data) => {
-		// setIsLoading(true);
-		// const transformedData = transformData(data);
-		// try {
-		// 	const response = await authActions.userRegisterFreelancer(
-		// 		transformedData
-		// 	);
-		// 	const dataEmailEncoded = encodeURIComponent(JSON.stringify(data.email));
-		// 	console.log(dataEmailEncoded);
-		// 	navigate(`/signup/confirmation_email?e=` + dataEmailEncoded);
-		// 	setIsLoading(false);
-		// } catch (error) {
-		// 	setIsLoading(false);
-		// 	setErrorRequestMessage(error.response.data.error);
-		// }
+		setIsLoading(true);
+		const transformedData = transformData(data);
+		try {
+			await signupFreelance(transformedData);
+			const dataEmailEncoded = encodeURIComponent(JSON.stringify(data.email));
+			navigate(`/signup/confirmation_email?e=` + dataEmailEncoded);
+			setIsLoading(false);
+		} catch (error) {
+			setIsLoading(false);
+			setErrorRequestMessage(error.response.data.error);
+		}
 	};
 
 	return (
