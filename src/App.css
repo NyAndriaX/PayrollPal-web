@@ -23,6 +23,10 @@
     background-color: white;
     
   }
+  .components .card{
+    border-radius: none;
+    border:none;
+  }
   .card{
     max-width: 100%;
   }
