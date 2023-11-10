@@ -7,7 +7,6 @@ import {
 const companyDayValidityReducer = (state, action) => {
 	switch (action.type) {
 		case FETCH_ALL_DAY_DUMP_BY_FREELANCE:
-			console.log(action.payload);
 			let sum = 0;
 			action.payload.map((item) => {
 				sum = sum + item._doc?.nbrDeJours;

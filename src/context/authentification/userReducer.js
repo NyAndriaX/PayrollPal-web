@@ -3,6 +3,7 @@ import {
 	LOGOUT_USER,
 	UPDATED_PROFIL_ADMIN,
 	UPDATED_SETTINGS_COMPANY,
+	UPDATED_SETTINGS_FREELANCE,
 } from "../../service/authentification/authAction.js";
 
 const authReducer = (state, action) => {
@@ -27,6 +28,13 @@ const authReducer = (state, action) => {
 				infosUsers: action.payload.user,
 			};
 		case UPDATED_SETTINGS_COMPANY:
+			sessionStorage.setItem("token", action.payload?.authToken);
+			return {
+				...state,
+				infosUsers: action.payload?.user,
+				isSecureContext: true,
+			};
+		case UPDATED_SETTINGS_FREELANCE:
 			sessionStorage.setItem("token", action.payload?.authToken);
 			return {
 				...state,

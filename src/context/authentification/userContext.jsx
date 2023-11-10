@@ -6,6 +6,7 @@ import {
 	logoutAction,
 	updatedProfilAction,
 	updatedProfilForCompanyAction,
+	updatedSettingsUserFreelancerAction,
 } from "../../service/authentification/authAction.js";
 import { authReducer } from "./userReducer.js";
 
@@ -29,6 +30,8 @@ const UserProvider = ({ children }) => {
 				updatedProfilForCompany: (userId, formData) =>
 					updatedProfilForCompanyAction(dispatch, userId, formData),
 				updatedProfil: (formData) => updatedProfilAction(dispatch, formData),
+				updatedSettingsUserFreelancer: (userId, userData) =>
+					updatedSettingsUserFreelancerAction(dispatch, userId, userData),
 				checkedEmail: (email) => checkedEmailAction(dispatch, email),
 				login: (userData) => loginAction(dispatch, userData),
 				logout: () => logoutAction(dispatch),

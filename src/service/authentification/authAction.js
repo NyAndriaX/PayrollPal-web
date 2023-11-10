@@ -18,6 +18,7 @@ export const FETCH_DATA_IN_SESSION_STORAGE = "FETCH_DATA_IN_SESSION_STORAGE ";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const LOGIN_USER = "LOGIN_USER";
 export const UPDATED_PROFIL_ADMIN = "UPDATED_PROFIL_ADMIN";
+export const UPDATED_SETTINGS_FREELANCE = "UPDATED_SETTINGS_FREELANCE";
 
 // export const isEmailValidInUserAction = async (dispatch, data) => {
 // 	try {
@@ -107,6 +108,25 @@ export const updatedProfilForCompanyAction = async (
 		const response = await apiUrl.post(`/company/settings/${userId}`, formData);
 		dispatch({
 			type: UPDATED_SETTINGS_COMPANY,
+			payload: response?.data.result,
+		});
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const updatedSettingsUserFreelancerAction = async (
+	dispatch,
+	userId,
+	userData
+) => {
+	try {
+		const response = await apiUrl.post(
+			`/freelance/settings/${userId}`,
+			userData
+		);
+		dispatch({
+			type: UPDATED_SETTINGS_FREELANCE,
 			payload: response?.data.result,
 		});
 	} catch (error) {

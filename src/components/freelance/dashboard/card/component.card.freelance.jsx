@@ -1,10 +1,19 @@
 import React from "react";
+import { ComponentCardFreelanceDashboardStyled } from "./component.card.freelance.dashboard.styled";
+import { useDayDumpData } from "../../../../context/freelance/dayDump/dayDumpContext";
 import { useNavigate } from "react-router-dom";
 
 const ComponentCardFreelance = () => {
+	const { dayDumpData } = useDayDumpData();
+	const { isDepositDayInThisMonth, placement, nbrDeJours } = dayDumpData;
+
 	const navigate = useNavigate();
+
+	const isButtonDisabled =
+		!placement || isDepositDayInThisMonth || new Date().getDate() !== 10;
+
 	return (
-		<>
+		<ComponentCardFreelanceDashboardStyled>
 			<div className="justify-space-between" style={{ alignItems: "stretch" }}>
 				<div className="card" style={{ maxWidth: "initial" }}>
 					<p className="p-h3">Contrat</p>
@@ -20,16 +29,19 @@ const ComponentCardFreelance = () => {
 				<div className="card" style={{ maxWidth: "initial" }}>
 					<p className="p-h3-secondary">Jours déposés</p>
 					<div className="row-btn-2">
-						<p className="p-indicateur-secondary">0</p>
+						<p className="p-indicateur-secondary">{nbrDeJours}</p>
 						<button
-							className="btn-secondary"
+							className={`btn-secondary ${
+								isButtonDisabled ? "btn-disabled" : ""
+							}`}
+							disabled={isButtonDisabled}
 							onClick={() => navigate("/Dépôt%20des%20jours")}>
 							Déposer les jours du mois
 						</button>
 					</div>
 				</div>
 			</div>
-		</>
+		</ComponentCardFreelanceDashboardStyled>
 	);
 };
 export default ComponentCardFreelance;

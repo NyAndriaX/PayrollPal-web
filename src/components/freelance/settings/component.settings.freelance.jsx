@@ -1,20 +1,19 @@
+import { ComponentSettingsFreelanceStyled } from "./component.settings.styled.freelance";
+import ComponentSettingsProfilFreelance from "./profil/component.settings.profil.freelance";
+import ComponentSettingsAdresseFreelance from "./adresse/component.settings.adresse.freelance";
+import ComponentSettingsBanqueFreelance from "./banque/component.settings.banque.freelance";
+import ComponentSettingsJustificatifFreelance from "./justificatifs/component.settings.justificatif.freelance";
+
 const ComponentSettingsFreelance = () => {
 	return (
-		<div className="row">
-			<div className="card">
-				<div className="justify-space-between">
-					<p className="p-h2 text-black-start">Profil</p>
-					<button className="btn-secondary" style={{ width: "auto" }}>
-						Edit
-					</button>
-				</div>
-				<div className="column" style={{ marginTop: "1rem" }}>
-					<div>
-						<p className="p-h3">Nom</p>
-					</div>
-				</div>
+		<ComponentSettingsFreelanceStyled>
+			<div className="row">
+				<ComponentSettingsProfilFreelance />
+				<ComponentSettingsAdresseFreelance />
+				<ComponentSettingsBanqueFreelance />
+				<ComponentSettingsJustificatifFreelance />
 			</div>
-		</div>
+		</ComponentSettingsFreelanceStyled>
 	);
 };
 export default ComponentSettingsFreelance;
