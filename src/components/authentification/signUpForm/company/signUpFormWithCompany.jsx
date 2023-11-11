@@ -71,6 +71,8 @@ const SignUpFormWidthCompany = () => {
 	const handleBack = () => {
 		if (currentStep > 0) {
 			setCurrentStep(currentStep - 1);
+		} else {
+			navigate("/signup");
 		}
 	};
 
