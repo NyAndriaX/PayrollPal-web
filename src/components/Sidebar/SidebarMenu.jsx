@@ -78,7 +78,12 @@ const SidebarMenu = ({
 						userRoles[userRole].map((route) => (
 							<li
 								key={route}
-								onClick={(e) => navigate(route)}
+								onClick={(e) => {
+									if (window.innerWidth <= 768) {
+										toggleSidebar();
+									}
+									navigate(route);
+								}}
 								className={isActive(route)}>
 								{route === "Dashboard" && <FontAwesomeIcon icon={faChartPie} />}
 								{route === "Validation des jours" && (

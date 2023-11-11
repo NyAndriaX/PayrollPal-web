@@ -21,7 +21,9 @@
   .components{
     padding: 40px 4px;
     background-color: white;
-    
+  }
+  .components .card{
+    border:none
   }
   .components .card{
     border-radius: none;
@@ -88,12 +90,12 @@
   font-weight:700;
   line-height:1.3;
   text-align:center;
-  font-size:23px;
+  font-size:20px;
   margin:12px 0px 0px 0px;
    font-family: 'Mulish', sans-serif;
 }
 .p-h1{
-  font-size: 27px;
+  font-size: 24px;
   text-align: center;
   font-family: 'Mulish', sans-serif;
   font-weight: 700;
@@ -138,7 +140,7 @@
 .p-h3 {
   color: rgb(164 166 179);
   font-weight: 700;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 2;
   font-family: "Mulish", sans-serif;
   margin: 0;
@@ -146,7 +148,7 @@
 .p-h3-secondary {
   color: #3650fb;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 2;
   font-family: "Mulish", sans-serif;
   margin: 0;
@@ -165,6 +167,9 @@
   width:94%;
   padding:12px 12px;
 }
+.input:hover{
+  border:1px solid #b2b2b6
+}
 .input-error{
   border-color: red;
 }
@@ -175,7 +180,7 @@
   color: #3650fb;
 }
 .p-indicateur-primary{
-  font-size: 2rem;
+  font-size: calc(2rem - 3px);
   font-weight: 700;
   line-height: 0.5;
   color: rgb(164 166 179);
@@ -314,7 +319,7 @@ form{
 	.p-title-table {
 		color: rgb(164 166 179);
 		font-weight: 700;
-		font-size: 16px;
+		font-size: 13px;
 		line-height: 2;
 		font-family: "Mulish", sans-serif;
 		margin: 0;
@@ -331,7 +336,7 @@ form{
 		padding: 8px;
 	}
 	th {
-		font-size: 15px;
+		font-size: 13px;
 		text-align: start;
 		font-weight: 600;
 		line-height: 2;
@@ -339,7 +344,7 @@ form{
 		margin: 0;
 	}
 	td {
-		font-size: 14px;
+		font-size: 12px;
 		text-align: start;
 		font-weight: 500;
 		line-height: 2;

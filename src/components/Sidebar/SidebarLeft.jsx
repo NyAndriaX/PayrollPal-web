@@ -68,7 +68,6 @@ const SidebarLeft = () => {
 								style={{
 									flex: 1,
 									textAlign: "end",
-									display: "block",
 									marginRight: "1rem",
 								}}>
 								{user.nomRepresentant} {user.prenomRepresentant}
@@ -90,7 +89,6 @@ const SidebarLeft = () => {
 								style={{
 									flex: 1,
 									textAlign: "end",
-									display: "block",
 									marginRight: "1rem",
 								}}>
 								{user.nom} {user.prenom}
@@ -108,14 +106,22 @@ const SidebarLeft = () => {
 					)}
 				</div>
 			</div>
-			<SidebarMenu
-				toggleSidebar={toggleSidebar}
-				navigate={navigate}
-				location={location}
-				sidebarVisible={sidebarVisible}
-				user={user}
-				handleLogout={logout}
-			/>
+			<div
+				className={sidebarVisible ? "container-sidebar" : ""}
+				onClick={(e) => {
+					if (e.target === e.currentTarget) {
+						toggleSidebar();
+					}
+				}}>
+				<SidebarMenu
+					toggleSidebar={toggleSidebar}
+					navigate={navigate}
+					location={location}
+					sidebarVisible={sidebarVisible}
+					user={user}
+					handleLogout={logout}
+				/>
+			</div>
 		</>
 	);
 };
