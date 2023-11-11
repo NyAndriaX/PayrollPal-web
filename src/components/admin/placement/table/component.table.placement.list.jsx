@@ -27,9 +27,19 @@ const ComponentTablePlacementList = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{placementData.map((item) => (
-								<ComponentTablePlacement key={item._id} item={item} />
-							))}
+							{placementData.length > 0 ? (
+								placementData.map((item) => (
+									<ComponentTablePlacement key={item._id} item={item} />
+								))
+							) : (
+								<td colSpan={5}>
+									<p
+										className="p-h3 text-center"
+										style={{ fontSize: "0.85rem" }}>
+										Aucune donner disponible
+									</p>
+								</td>
+							)}
 						</tbody>
 					</table>
 				</div>
