@@ -1,14 +1,16 @@
 import React, { createContext, useContext, useReducer } from "react";
 import {
-	checkedEmailAction,
 	loginAction,
+	//new url
+	isEmailAvailableAction,
+	existenceEmailAction,
 	signupFreelanceAction,
-	signupCompanyAction,
-	validationEmailAction,
+	isEmailValidAction,
 	fetchDataInfosData,
 	logoutAction,
 	updatedProfilAction,
 	updatedProfilForCompanyAction,
+	updatedUserFreelancerAction,
 	updatedSettingsUserFreelancerAction,
 } from "../../service/authentification/authAction.js";
 import { authReducer } from "./userReducer.js";
@@ -30,17 +32,21 @@ const UserProvider = ({ children }) => {
 		<UserContext.Provider
 			value={{
 				data,
+				logout: () => logoutAction(dispatch),
+				login: (userData) => loginAction(dispatch, userData),
+				signupFreelance: (data) => signupFreelanceAction(data),
+				existenceEmail: (email) => existenceEmailAction(email),
+				isEmailAvailable: (email) => isEmailAvailableAction(email),
+				//not verifier
 				updatedProfilForCompany: (userId, formData) =>
 					updatedProfilForCompanyAction(dispatch, userId, formData),
 				updatedProfil: (formData) => updatedProfilAction(dispatch, formData),
 				updatedSettingsUserFreelancer: (userId, userData) =>
 					updatedSettingsUserFreelancerAction(dispatch, userId, userData),
-				checkedEmail: (email) => checkedEmailAction(dispatch, email),
-				login: (userData) => loginAction(dispatch, userData),
-				signupCompany: (data) => signupCompanyAction(data),
-				signupFreelance: (data) => signupFreelanceAction(data),
-				validationEmail: (data) => validationEmailAction(data),
-				logout: () => logoutAction(dispatch),
+				updatedUserFreelancerAction: (userId, userData) =>
+					updatedUserFreelancerAction(userId, userData),
+				isEmailValid: (data) => isEmailValidAction(data),
+				//new url
 			}}>
 			{children}
 		</UserContext.Provider>

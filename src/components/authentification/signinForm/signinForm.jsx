@@ -1,6 +1,6 @@
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
 import { UserContext } from "../../../context/authentification/userContext";
 
 const steps = [
@@ -14,7 +14,7 @@ const steps = [
 	},
 ];
 
-const SignInForm = () => {
+const SigninForm = () => {
 	const {
 		control,
 		handleSubmit,
@@ -27,7 +27,7 @@ const SignInForm = () => {
 	const [currentStep, setCurrentStep] = React.useState(0);
 	const [isLoading, setIsLoading] = React.useState(false);
 	const [error, setError] = React.useState("");
-	const { checkedEmail, login } = React.useContext(UserContext);
+	const { existenceEmail, login } = React.useContext(UserContext);
 
 	const isPasswordValid = (value) => {
 		return (
@@ -35,18 +35,13 @@ const SignInForm = () => {
 		);
 	};
 
-	const handleBack = () => {
-		if (currentStep > 0) {
-			setCurrentStep(currentStep - 1);
-		}
-	};
-
 	const handleContinueClick = async (e) => {
 		e.preventDefault();
-		setIsLoading(true);
 		const data = getValues();
 		try {
-			await checkedEmail(data);
+			setIsLoading(true);
+			const { email } = data;
+			await existenceEmail(email);
 			if (currentStep + 1 <= steps.length) {
 				const isValidStep = trigger(steps[currentStep].fields);
 				if (isValidStep) {
@@ -70,16 +65,22 @@ const SignInForm = () => {
 		return transformedData;
 	};
 
+	const onForgetPassword = () => {
+		const { email } = getValues();
+		const dataEmailEncoded = encodeURIComponent(JSON.stringify(email));
+		navigate(`/signin/mot_de_passe_oubliee?e=${dataEmailEncoded}`);
+	};
+
 	const onSubmit = async (data) => {
 		const resultTransformData = transformData(data);
-		setIsLoading(true);
 		try {
+			setIsLoading(true);
 			await login(resultTransformData);
 			setIsLoading(false);
 			navigate("/");
 		} catch (error) {
-			setError(error?.response.data.message);
 			setIsLoading(false);
+			setError(error?.response.data.message);
 		}
 	};
 
@@ -87,7 +88,7 @@ const SignInForm = () => {
 		<>
 			<div className="card" style={{ padding: "50px 30px" }}>
 				<div className="contentTheme">
-					<div className="bg-logo">
+					<div className="bg-logo" onClick={() => navigate("/signup")}>
 						<h1 className="logo">F</h1>
 					</div>
 					<p className="p-h2">Freelpay</p>
@@ -95,16 +96,14 @@ const SignInForm = () => {
 				<p className="p-h1">Connexion</p>
 				<p className="p-h3 text-center">Pour connecter, entrez votre email</p>
 				{error && (
-					<p
-						className="p-label p-error"
-						style={{ textAlign: "center", marginTop: "50px" }}>
+					<p className="p-label p-error" style={{ textAlign: "center" }}>
 						{error}
 					</p>
 				)}
 				<form onSubmit={handleSubmit(onSubmit)}>
 					{steps[currentStep].fields.map((fieldName) => (
 						<div key={fieldName}>
-							<p className={`p-label ${errors[fieldName] ? "p-error" : ""}`}>
+							<p className={` p-label ${errors[fieldName] ? "p-error" : ""}`}>
 								{fieldName.replace(/([A-Z])/g, " $1").trim()}
 							</p>
 							<Controller
@@ -158,7 +157,7 @@ const SignInForm = () => {
 						}
 						className="btn-secondary">
 						{isLoading ? (
-							<>Chargment ...</>
+							<>Chargement ...</>
 						) : (
 							<>
 								{currentStep === steps.length - 1
@@ -167,18 +166,24 @@ const SignInForm = () => {
 							</>
 						)}
 					</button>
-					<button type="button" className="btn-primary" onClick={handleBack}>
-						Retour
-					</button>
-					<p className="p-h3 text-center">
-						Pas inscrit ?{" "}
-						<span className="p-a" onClick={(e) => navigate("/signup")}>
-							Inscription
-						</span>
-					</p>
+					{currentStep > 0 ? (
+						<p className="p-h3 text-center">
+							Mot de passe oubliée ?{" "}
+							<span className="p-a" onClick={onForgetPassword}>
+								Récupération
+							</span>
+						</p>
+					) : (
+						<p className="p-h3 text-center">
+							Pas inscrit ?{" "}
+							<span className="p-a" onClick={(e) => navigate("/signup")}>
+								Inscription
+							</span>
+						</p>
+					)}
 				</form>
 			</div>
 		</>
 	);
 };
-export default SignInForm;
+export default SigninForm;

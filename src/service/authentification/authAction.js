@@ -1,67 +1,69 @@
-import { apiUrl } from "../../config/apiUrl";
 import jwt_decode from "jwt-decode";
-// import {
-// 	isEmailValidInUserService,
-// 	checkedEmailService,
-// 	checkedPasswordService,
-// 	signupCompanyService,
-// 	signupFreelanceService,
-// } from "./authService";
+import {
+	isEmailAvailableService,
+	existenceEmailService,
+	signupFreelanceService,
+	isEmailValidService,
+	loginService,
+} from "./authService";
 
-// export const AUTH_VALIDATION_EMAIL = "AUTH_VALIDATION_EMAIL";
-// export const AUTH_CHECKED_EMAIL = "AUTH_CHECKED_EMAIL";
-// export const AUTH_CHECKED_PASSWORD = "AUTH_CHECKED_PASSWORD";
-
-export const FETCH_DATA_IN_SESSION_STORAGE = "FETCH_DATA_IN_SESSION_STORAGE ";
-export const LOGOUT_USER = "LOGOUT_USER";
 export const LOGIN_USER = "LOGIN_USER";
+export const LOGOUT_USER = "LOGOUT_USER";
+export const AVAILABILITY_EMAIL = "AVAILABILITY_EMAIL";
 export const UPDATED_PROFIL_ADMIN = "UPDATED_PROFIL_ADMIN";
 export const UPDATED_SETTINGS_FREELANCE = "UPDATED_SETTINGS_FREELANCE";
+export const FETCH_DATA_IN_SESSION_STORAGE = "FETCH_DATA_IN_SESSION_STORAGE ";
 
-// export const isEmailValidInUserAction = async (dispatch, data) => {
-// 	try {
-// 		const result = await isEmailValidInUserService(data);
-// 	} catch (error) {}
-// };
-
-export const checkedEmailAction = async (dispatch, data) => {
+export const isEmailAvailableAction = async (email) => {
 	try {
-		await apiUrl.post("/auth/login/checkedEmail", data);
+		const response = await isEmailAvailableService(email);
+		return response;
 	} catch (error) {
 		throw error;
 	}
 };
+
+export const existenceEmailAction = async (email) => {
+	try {
+		const response = await existenceEmailService(email);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const isEmailValidAction = async (data) => {
+	try {
+		const response = await isEmailValidService(data);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
+
 export const signupFreelanceAction = async (data) => {
 	try {
-		await apiUrl.post("/auth/signup/freelance", data);
+		const response = await signupFreelanceService(data);
+		return response;
 	} catch (error) {
 		throw error;
 	}
 };
-export const signupCompanyAction = async (data) => {
-	try {
-		await apiUrl.post("/auth/signup/company", data);
-	} catch (error) {
-		throw error;
-	}
-};
-export const validationEmailAction = async (data) => {
-	try {
-		await apiUrl.post("/auth/signup/validation_email", data);
-	} catch (error) {
-		throw error;
-	}
-};
+// export const signupCompanyAction = async (data) => {
+// 	try {
+// 		await apiUrl.post("/auth/signup/company", data);
+// 	} catch (error) {
+// 		throw error;
+// 	}
+// };
+
 export const loginAction = async (dispatch, data) => {
 	try {
-		const result = await apiUrl.post("/auth/login/checkedPassword", data);
-		const token = result.data.authToken;
-		const decodedToken = jwt_decode(token);
+		const response = await loginService(data);
 		dispatch({
 			type: LOGIN_USER,
-			payload: decodedToken,
+			payload: response,
 		});
-		sessionStorage.setItem("token", token);
 		window.location = "/";
 	} catch (error) {
 		throw error;
@@ -151,7 +153,14 @@ export const updatedSettingsUserFreelancerAction = async (
 		throw error;
 	}
 };
-
+export const updatedUserFreelancerAction = async (userId, userData) => {
+	console.log(userData, userId);
+	try {
+		await apiUrl.post(`/freelance/settings/${userId}`, userData);
+	} catch (error) {
+		throw error;
+	}
+};
 // export const checkedPasswordAction = (data) => {
 // 	return async (dispatch) => {
 // 		try {

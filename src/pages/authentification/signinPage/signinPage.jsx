@@ -1,8 +1,8 @@
-import SignInForm from "../../../components/authentification/signInForm/signInForm";
+import SigninForm from "../../../components/authentification/signinForm/signinForm";
 const SignInPage = () => {
 	return (
 		<div className="components">
-			<SignInForm />{" "}
+			<SigninForm />{" "}
 		</div>
 	);
 };

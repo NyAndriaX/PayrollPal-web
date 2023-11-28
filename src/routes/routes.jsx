@@ -1,12 +1,25 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import SignInPage from "../pages/authentification/signInPage/signInPage.jsx";
-import SignUpPage from "../pages/authentification/signUpPage/indexPage.jsx";
+import SigninPage from "../pages/authentification/signinPage/signinPage.jsx";
+import SignupPage from "../pages/authentification/signupPage/indexPage.jsx";
+import ForgetPasswordPage from "../pages/authentification/forgetPassword/forgetPassword.page.jsx";
 import ValidationEmailPage from "../pages/authentification/validationEmail/validationEmail.page.jsx";
 import { useUserData } from "../context/authentification/userContext.jsx";
 import HomeLayout from "../layout";
 
 const routes = [
+	{
+		path: "/signin/mot_de_passe_oubliee",
+		element: <ForgetPasswordPage />,
+		isAuthPage: true,
+		isPrivate: false,
+	},
+	{
+		path: "/signup/confirmation_email",
+		element: <ValidationEmailPage />,
+		isAuthPage: true,
+		isPrivate: false,
+	},
 	{
 		path: "/signup/confirmation_email",
 		element: <ValidationEmailPage />,
@@ -15,12 +28,12 @@ const routes = [
 	},
 	{
 		path: "/signup/*",
-		element: <SignUpPage />,
+		element: <SignupPage />,
 		isPrivate: false,
 	},
 	{
 		path: "/login",
-		element: <SignInPage />,
+		element: <SigninPage />,
 		isAuthPage: true,
 		isPrivate: false,
 	},
