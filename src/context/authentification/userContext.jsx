@@ -1,11 +1,16 @@
 import React, { createContext, useContext, useReducer } from "react";
 import {
 	loginAction,
+	resendValidationCodeAction,
+	generateAndSendResetTokenAction,
+	validateResetTokenAction,
+	resetPasswordAction,
 	//new url
+	isEmailValidAction,
 	isEmailAvailableAction,
 	existenceEmailAction,
 	signupFreelanceAction,
-	isEmailValidAction,
+	signupCompanyAction,
 	fetchDataInfosData,
 	logoutAction,
 	updatedProfilAction,
@@ -33,10 +38,17 @@ const UserProvider = ({ children }) => {
 			value={{
 				data,
 				logout: () => logoutAction(dispatch),
+				signupCompany: (data) => signupCompanyAction(data),
+				resendValidationCode: (email) => resendValidationCodeAction(email),
 				login: (userData) => loginAction(dispatch, userData),
 				signupFreelance: (data) => signupFreelanceAction(data),
 				existenceEmail: (email) => existenceEmailAction(email),
+				isEmailValid: (data) => isEmailValidAction(data),
 				isEmailAvailable: (email) => isEmailAvailableAction(email),
+				generateAndSendResetToken: (email) =>
+					generateAndSendResetTokenAction(email),
+				validateResetToken: (token) => validateResetTokenAction(token),
+				resetPassword: (form) => resetPasswordAction(form),
 				//not verifier
 				updatedProfilForCompany: (userId, formData) =>
 					updatedProfilForCompanyAction(dispatch, userId, formData),
@@ -45,7 +57,6 @@ const UserProvider = ({ children }) => {
 					updatedSettingsUserFreelancerAction(dispatch, userId, userData),
 				updatedUserFreelancerAction: (userId, userData) =>
 					updatedUserFreelancerAction(userId, userData),
-				isEmailValid: (data) => isEmailValidAction(data),
 				//new url
 			}}>
 			{children}

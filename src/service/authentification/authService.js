@@ -27,9 +27,18 @@ const signupFreelanceService = async (data) => {
 	}
 };
 
+const signupCompanyService = async (data) => {
+	try {
+		const result = await apiUrl.post("/auth/signup/company", data);
+		return result;
+	} catch (error) {
+		throw error;
+	}
+};
+
 const isEmailValidService = async (data) => {
 	try {
-		const result = await apiUrl.post("/isEmailValid", data);
+		const result = await apiUrl.post("/auth/isEmailValid", data);
 		return result;
 	} catch (error) {
 		throw error;
@@ -47,11 +56,49 @@ const loginService = async (data) => {
 		throw error;
 	}
 };
+const resendValidationCodeService = async (email) => {
+	try {
+		await apiUrl.get(`/auth/${email}/resend-validation-code`);
+	} catch (error) {
+		throw error;
+	}
+};
+
+const generateAndSendResetTokenService = async (email) => {
+	try {
+		const response = await apiUrl(`/auth/generate-reset-token/${email}`);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
+const validateResetTokenService = async (token) => {
+	try {
+		const response = await apiUrl(`/auth/validate-reset-token/${token}`);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
+
+const resetPasswordService = async (form) => {
+	try {
+		const response = await apiUrl.post("/auth/reset-password", form);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
 
 export {
 	isEmailAvailableService,
 	existenceEmailService,
 	signupFreelanceService,
+	signupCompanyService,
 	isEmailValidService,
 	loginService,
+	resendValidationCodeService,
+	generateAndSendResetTokenService,
+	validateResetTokenService,
+	resetPasswordService,
 };

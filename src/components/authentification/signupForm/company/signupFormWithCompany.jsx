@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
+import LoadingCercleGif from "../../../../assets/loading-cercle-dots.gif";
 
 const SignupFormWithCompany = ({
 	steps,
@@ -50,15 +51,10 @@ const SignupFormWithCompany = ({
 		setCurrentUnderStep((prevStep) => prevStep + 1);
 	};
 	const onContinue = async () => {
-		const isValidStep = await trigger(
-			steps.underStep[currentUnderStep]?.fields
-		);
-		if (isValidStep) {
-			if (currentUnderStep + 1 < steps.underStep.length) {
-				handleContinueUnderStepClick();
-			} else {
-				handleContinueStepsClick();
-			}
+		if (currentUnderStep + 1 < steps.underStep.length) {
+			handleContinueUnderStepClick();
+		} else {
+			handleContinueStepsClick();
 		}
 	};
 
@@ -126,18 +122,25 @@ const SignupFormWithCompany = ({
 				<button
 					type="button"
 					className="btn-secondary"
-					onClick={() => {
-						if (
-							currentStep >= Length - 1 &&
-							currentUnderStep >= steps.underStep.length - 1
-						) {
-							handleSubmit(onSubmit(getValues()));
-						} else {
-							onContinue();
+					onClick={async () => {
+						const isValidStep = await trigger(
+							steps.underStep[currentUnderStep]?.fields
+						);
+						if (isValidStep) {
+							if (
+								currentStep >= Length - 1 &&
+								currentUnderStep >= steps.underStep.length - 1
+							) {
+								handleSubmit(onSubmit(getValues()));
+							} else {
+								onContinue();
+							}
 						}
 					}}>
 					{isLoading ? (
-						<>Changement ...</>
+						<>
+							<img src={LoadingCercleGif} alt="loading ..." width={40} />
+						</>
 					) : (
 						<>{currentStep >= Length - 1 ? "S'inscrire" : "Continuer"}</>
 					)}

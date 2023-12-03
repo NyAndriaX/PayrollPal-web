@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Loading from "../../../common/loading.jsx";
+import LoadingCercleGif from "../../../../assets/loading-cercle-dots.gif";
 import { useForm, Controller } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudArrowDown } from "@fortawesome/free-solid-svg-icons";
@@ -70,15 +70,10 @@ const SignupFormWidthFreelance = ({
 
 	const onContinue = async () => {
 		const email = await getValues("email");
-		const isValidStep = await trigger(
-			steps.underStep[currentUnderStep]?.fields
-		);
-		if (isValidStep) {
-			if (currentUnderStep + 1 < steps.underStep.length) {
-				handleContinueUnderStepClick();
-			} else {
-				handleContinueStepClick(email);
-			}
+		if (currentUnderStep + 1 < steps.underStep.length) {
+			handleContinueUnderStepClick();
+		} else {
+			handleContinueStepClick(email);
 		}
 	};
 
@@ -289,18 +284,25 @@ const SignupFormWidthFreelance = ({
 				<button
 					type="button"
 					className="btn-secondary"
-					onClick={() => {
-						if (
-							currentStep >= Length - 1 &&
-							currentUnderStep >= steps.underStep.length - 1
-						) {
-							handleSubmit(onSubmit(getValues(), cin));
-						} else {
-							onContinue();
+					onClick={async () => {
+						const isValidStep = await trigger(
+							steps.underStep[currentUnderStep]?.fields
+						);
+						if (isValidStep) {
+							if (
+								currentStep >= Length - 1 &&
+								currentUnderStep >= steps.underStep.length - 1
+							) {
+								handleSubmit(onSubmit(getValues(), cin));
+							} else {
+								onContinue();
+							}
 						}
 					}}>
 					{isLoading ? (
-						<Loading />
+						<>
+							<img src={LoadingCercleGif} alt="loading ..." width={40} />
+						</>
 					) : currentStep === Length - 1 ? (
 						"Je valide ma piéce d'identité"
 					) : steps.underStep.length >= 0 &&

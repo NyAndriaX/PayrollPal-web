@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { UserContext } from "../../../context/authentification/userContext";
+import LoadingCercleGif from "../../../assets/loading-cercle-dots.gif";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
+const ERROR_MESSAGES = {
+	REQUIRED: "Ce champ est requis",
+	EMAIL_PATTERN: "Ce champ doit être une adresse e-mail valide",
+	PASSWORD_VALIDATION: "Le mot de passe doit contenir au moins un chiffre",
+	GENERIC: "Une erreur s'est produite",
+};
 
 const steps = [
 	{
@@ -21,13 +31,15 @@ const SigninForm = () => {
 		formState: { errors, isValid },
 		trigger,
 		getValues,
+		setValue,
 	} = useForm({ mode: "onChange" });
 
 	const navigate = useNavigate();
-	const [currentStep, setCurrentStep] = React.useState(0);
-	const [isLoading, setIsLoading] = React.useState(false);
-	const [error, setError] = React.useState("");
-	const { existenceEmail, login } = React.useContext(UserContext);
+	const [currentStep, setCurrentStep] = useState(0);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState("");
+	const { existenceEmail, login } = useContext(UserContext);
+	const [showPassword, setShowPassword] = useState(false);
 
 	const isPasswordValid = (value) => {
 		return (
@@ -35,35 +47,89 @@ const SigninForm = () => {
 		);
 	};
 
-	const handleContinueClick = async (e) => {
+	const renderFormField = (fieldName) => (
+		<div key={fieldName}>
+			<p className={` p-label ${errors[fieldName] ? "p-error" : ""}`}>
+				{fieldName.replace(/([A-Z])/g, " $1").trim()}
+			</p>
+			<div className="input-container">
+				<Controller
+					name={fieldName}
+					control={control}
+					rules={{
+						required: ERROR_MESSAGES.REQUIRED,
+						...(fieldName === "email" && {
+							pattern: {
+								value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+								message: ERROR_MESSAGES.EMAIL_PATTERN,
+							},
+						}),
+						...(fieldName.includes("motDePasse") && {
+							minLength: {
+								value: 8,
+								message: "Le mot de passe doit avoir au moins 8 caractères",
+							},
+							validate: isPasswordValid,
+						}),
+					}}
+					render={({ field }) => (
+						<div className="input-wrapper">
+							<input
+								type={
+									fieldName === "motDePasse" && !showPassword
+										? "password"
+										: "text"
+								}
+								className={`input ${errors[fieldName] ? "input-error" : ""}`}
+								{...field}
+							/>
+							{fieldName === "motDePasse" && (
+								<FontAwesomeIcon
+									icon={showPassword ? faEyeSlash : faEye}
+									className="password-toggle-icon"
+									onClick={() => {
+										setShowPassword(!showPassword);
+									}}
+								/>
+							)}
+						</div>
+					)}
+				/>
+			</div>
+			{errors[fieldName] && (
+				<span className="p-error">{errors[fieldName].message}</span>
+			)}
+		</div>
+	);
+
+	const handleContinue = async (e) => {
 		e.preventDefault();
 		const data = getValues();
+
 		try {
 			setIsLoading(true);
 			const { email } = data;
 			await existenceEmail(email);
+
 			if (currentStep + 1 <= steps.length) {
-				const isValidStep = trigger(steps[currentStep].fields);
+				const isValidStep = await trigger(steps[currentStep].fields);
+
 				if (isValidStep) {
 					setCurrentStep((prevStep) => prevStep + 1);
 					setError("");
 				}
 			}
-			setIsLoading(false);
 		} catch (error) {
-			setError(error?.response.data.message);
+			setError(error?.response?.data?.message || ERROR_MESSAGES.GENERIC);
+		} finally {
 			setIsLoading(false);
 		}
 	};
 
-	const transformData = (data) => {
-		const transformedData = {
-			email: data.email || "",
-			password: data.motDePasse || "",
-		};
-
-		return transformedData;
-	};
+	const transformData = (data) => ({
+		email: data.email || "",
+		password: data.motDePasse || "",
+	});
 
 	const onForgetPassword = () => {
 		const { email } = getValues();
@@ -73,14 +139,15 @@ const SigninForm = () => {
 
 	const onSubmit = async (data) => {
 		const resultTransformData = transformData(data);
+
 		try {
 			setIsLoading(true);
 			await login(resultTransformData);
-			setIsLoading(false);
 			navigate("/");
 		} catch (error) {
+			setError(error?.response?.data?.message || ERROR_MESSAGES.GENERIC);
+		} finally {
 			setIsLoading(false);
-			setError(error?.response.data.message);
 		}
 	};
 
@@ -101,63 +168,18 @@ const SigninForm = () => {
 					</p>
 				)}
 				<form onSubmit={handleSubmit(onSubmit)}>
-					{steps[currentStep].fields.map((fieldName) => (
-						<div key={fieldName}>
-							<p className={` p-label ${errors[fieldName] ? "p-error" : ""}`}>
-								{fieldName.replace(/([A-Z])/g, " $1").trim()}
-							</p>
-							<Controller
-								name={fieldName}
-								control={control}
-								rules={{
-									required: `Ce champ est requis`,
-									...(fieldName === "email" && {
-										pattern: {
-											value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-											message: "Ce champ doit être une adresse e-mail valide",
-										},
-									}),
-									...(fieldName.includes("motDePasse") && {
-										minLength: 8,
-										validate: isPasswordValid,
-									}),
-								}}
-								render={({ field }) => (
-									<>
-										<input
-											type={
-												fieldName === "motDePasse"
-													? "password"
-													: fieldName === "dateDeNaissance"
-													? "date"
-													: "text"
-											}
-											className={`input ${
-												errors[fieldName] ? "input-error" : ""
-											}`}
-											{...field}
-										/>
-										{errors[fieldName] && (
-											<span className="p-error">
-												{errors[fieldName].message}
-											</span>
-										)}
-									</>
-								)}
-							/>
-						</div>
-					))}
+					{steps[currentStep].fields.map(renderFormField)}
 
 					<button
 						type="button"
 						onClick={
 							currentStep === steps.length - 1
 								? handleSubmit(onSubmit)
-								: handleContinueClick
+								: handleContinue
 						}
 						className="btn-secondary">
 						{isLoading ? (
-							<>Chargement ...</>
+							<img src={LoadingCercleGif} alt="loading ..." width={40} />
 						) : (
 							<>
 								{currentStep === steps.length - 1
@@ -176,7 +198,7 @@ const SigninForm = () => {
 					) : (
 						<p className="p-h3 text-center">
 							Pas inscrit ?{" "}
-							<span className="p-a" onClick={(e) => navigate("/signup")}>
+							<span className="p-a" onClick={() => navigate("/signup")}>
 								Inscription
 							</span>
 						</p>
@@ -186,4 +208,5 @@ const SigninForm = () => {
 		</>
 	);
 };
+
 export default SigninForm;

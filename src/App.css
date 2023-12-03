@@ -310,6 +310,7 @@ form{
 	}
 .btn-error{
   background-color: red;
+  font-weight: 800;
 }
 	@media (max-width: 600px) {
 		.row {
@@ -369,4 +370,11 @@ form{
     max-width: initial;
     min-width: 260px;
     width: 24%;
+  }
+  .input-wrapper{
+    display:flex;
+    align-items: center;
+  }
+  .password-toggle-icon{
+    margin-left: -30px;
   }

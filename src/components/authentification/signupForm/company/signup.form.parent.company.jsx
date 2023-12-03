@@ -27,20 +27,19 @@ const SignupFormParentCompany = () => {
 	};
 
 	const onSubmit = async (data) => {
-		console.log(data);
-		// const resultTransformData = transformData(data);
-		// try {
-		// 	setIsLoading(true);
-		// 	await signupCompany(resultTransformData);
-		// 	const dataEmailEncoded = encodeURIComponent(
-		// 		JSON.stringify(resultTransformData.emailRepresentant)
-		// 	);
-		// 	navigate(`/signup/confirmation_email?e=${dataEmailEncoded}`);
-		// 	setIsLoading(false);
-		// } catch (error) {
-		// 	setIsLoading(false);
-		// 	setErrorRequest(error.response.data.error);
-		// }
+		const resultTransformData = transformData(data);
+		try {
+			setIsLoading(true);
+			await signupCompany(resultTransformData);
+			const dataEmailEncoded = encodeURIComponent(
+				JSON.stringify(resultTransformData.representantEmail)
+			);
+			navigate(`/signup/confirmation_email?e=${dataEmailEncoded}`);
+			setIsLoading(false);
+		} catch (error) {
+			setIsLoading(false);
+			setErrorRequest(error.response?.data.error);
+		}
 	};
 
 	return (
