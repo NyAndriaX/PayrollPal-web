@@ -20,6 +20,7 @@ const ComponentRetrieveEmail = ({ nexStep, setForm }) => {
 	const handleSubmitToken = async (e) => {
 		try {
 			setIsLoading(true);
+			setErrorRequest("");
 			await generateAndSendResetToken(e.email);
 			setForm((prevForm) => ({
 				...prevForm,

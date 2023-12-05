@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import LoadingCercleGif from "../../../../assets/loading-cercle-dots.gif";
 
 const SignupFormWithCompany = ({
@@ -23,6 +25,7 @@ const SignupFormWithCompany = ({
 		getValues,
 	} = useForm({ mode: "onChange" });
 	const navigate = useNavigate();
+	const [showPassword, setShowPassword] = React.useState(false);
 
 	const isPasswordMatch = (value) => {
 		const passwordValue = getValues("motDePasse");
@@ -87,7 +90,10 @@ const SignupFormWithCompany = ({
 									},
 								}),
 								...(fieldName.includes("motDePasse") && {
-									minLength: 8,
+									minLength: {
+										value: 8,
+										message: "Le mot de passe doit avoir au moins 8 caractères",
+									},
 									validate: isPasswordValid,
 								}),
 								...(fieldName === "confirmationDeMotDePasse" && {
@@ -96,20 +102,32 @@ const SignupFormWithCompany = ({
 							}}
 							render={({ field }) => (
 								<>
-									<input
-										type={
-											fieldName === "motDePasse" ||
-											fieldName === "confirmationDeMotDePasse"
-												? "password"
-												: fieldName === "dateDeNaissance"
-												? "date"
-												: "text"
-										}
-										className={`input ${
-											errors[fieldName] ? "input-error" : ""
-										}`}
-										{...field}
-									/>
+									<div className="input-wrapper">
+										<input
+											type={
+												(fieldName === "motDePasse" && !showPassword) ||
+												fieldName === "confirmationDeMotDePasse"
+													? "password"
+													: fieldName === "dateDeNaissance"
+													? "date"
+													: "text"
+											}
+											className={`input ${
+												errors[fieldName] ? "input-error" : ""
+											}`}
+											{...field}
+										/>
+										{fieldName === "motDePasse" && (
+											<FontAwesomeIcon
+												icon={showPassword ? faEye : faEyeSlash}
+												className="password-toggle-icon"
+												onClick={() =>
+													setShowPassword((prevState) => !prevState)
+												}
+											/>
+										)}
+									</div>
+
 									{errors[fieldName] && (
 										<span className="p-error">{errors[fieldName].message}</span>
 									)}

@@ -1,10 +1,18 @@
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
 import Modal from "react-modal";
+import { useForm, Controller } from "react-hook-form";
+import LoadingGif from "../../../assets/loading-cercle-dots.gif";
 
 Modal.setAppElement("#root");
 
-const SettingsFormModal = ({ isOpen, onRequestClose, onSubmit, user }) => {
+const SettingsFormModal = ({
+	isOpen,
+	isLoading,
+	errorRequest,
+	onRequestClose,
+	onSubmit,
+	user,
+}) => {
 	const {
 		control,
 		handleSubmit,
@@ -16,7 +24,6 @@ const SettingsFormModal = ({ isOpen, onRequestClose, onSubmit, user }) => {
 	const handleConfirmAccept = () => {
 		const data = getValues();
 		onSubmit(data);
-		onRequestClose();
 	};
 	const handleCancel = () => {
 		reset();
@@ -31,6 +38,9 @@ const SettingsFormModal = ({ isOpen, onRequestClose, onSubmit, user }) => {
 			className="modal">
 			<p className="p-h1">Profil</p>
 			<p className="p-h3 text-center">Editer mon profile</p>
+			{errorRequest && (
+				<p className="text-center p-label p-error">{errorRequest}</p>
+			)}
 			<form onSubmit={handleSubmit(handleConfirmAccept)}>
 				<div className="data-ignores">
 					<Controller
@@ -43,7 +53,7 @@ const SettingsFormModal = ({ isOpen, onRequestClose, onSubmit, user }) => {
 					/>
 				</div>
 				<div>
-					<p className="p-label">Nom</p>
+					<p className={`p-label ${errors.nom ? "p-error" : ""}`}>Nom</p>
 					<Controller
 						name="nom"
 						control={control}
@@ -56,7 +66,7 @@ const SettingsFormModal = ({ isOpen, onRequestClose, onSubmit, user }) => {
 					{errors.nom && <p className="p-error">{errors.nom.message}</p>}
 				</div>
 				<div>
-					<p className="p-label">Prenom</p>
+					<p className={`p-label ${errors.prenom ? "p-error" : ""}`}>Prenom</p>
 					<Controller
 						name="prenom"
 						control={control}
@@ -69,7 +79,7 @@ const SettingsFormModal = ({ isOpen, onRequestClose, onSubmit, user }) => {
 					{errors.prenom && <p className="p-error">{errors.prenom.message}</p>}
 				</div>
 				<div>
-					<p className="p-label">Email</p>
+					<p className={`p-label ${errors.email ? "p-error" : ""}`}>Email</p>
 					<Controller
 						name="email"
 						control={control}
@@ -85,15 +95,6 @@ const SettingsFormModal = ({ isOpen, onRequestClose, onSubmit, user }) => {
 					/>
 					{errors.email && <p className="p-error">{errors.email.message}</p>}
 				</div>
-
-				<Controller
-					name="password"
-					control={control}
-					defaultValue={user.password}
-					render={({ field }) => (
-						<input type="hidden" className="input" {...field} />
-					)}
-				/>
 				<p className="p-label">Roles</p>
 
 				<Controller
@@ -109,7 +110,15 @@ const SettingsFormModal = ({ isOpen, onRequestClose, onSubmit, user }) => {
 						onClick={handleConfirmAccept}
 						className="btn-secondary"
 						disabled={!isValid}>
-						Confirmer
+						{isLoading ? (
+							<img
+								src={LoadingGif}
+								alt="chargement..."
+								style={{ width: "40px" }}
+							/>
+						) : (
+							"Valider"
+						)}
 					</button>
 					<button onClick={handleCancel} className="btn-primary">
 						Annuler

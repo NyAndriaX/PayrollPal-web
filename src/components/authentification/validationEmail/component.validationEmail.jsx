@@ -27,7 +27,8 @@ const ComponentValidationEmail = () => {
 			setIsLoading(true);
 			const userTokenData = userToken;
 			const userData = { token: userTokenData, email: userEmail };
-			const { user } = await isEmailValid(userData);
+			const result = await isEmailValid(userData);
+			const { user } = result.data?.result;
 			if (user.roles === "ROLES_COMPANY") {
 				navigation("/signup/success/company");
 			} else {

@@ -60,20 +60,25 @@ const SidebarLeft = () => {
 						display: "flex",
 						justifyContent: "center",
 						alignItems: "center",
+						gap: "20px",
 					}}>
 					{user.roles === "ROLES_COMPANY" ? (
 						<>
 							<p
-								className="p-user-name"
 								style={{
-									flex: 1,
-									textAlign: "end",
-									marginRight: "1rem",
+									display: "flex",
+									justifyContent: "end",
+									flex: "1 1 0%",
 								}}>
-								{user.nomRepresentant} {user.prenomRepresentant}
+								<span
+									class="p-user-name"
+									style={{ display: "inline-block", textAlign: "end" }}>
+									{" "}
+									{user.representantNom} {user.representantPrenom}
+								</span>
 							</p>
 							<Gravatar
-								email={user.emailRepresentant}
+								email={user.representantEmail}
 								size={35}
 								style={{
 									borderRadius: "50%",

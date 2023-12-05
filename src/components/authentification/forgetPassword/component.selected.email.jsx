@@ -1,6 +1,11 @@
+import LoadingGif from "../../../assets/loading-cercle-dots.gif";
 import { useSearchParams } from "../../../hooks/useSearchParams";
 
-const ComponentSelectedEmail = ({ onContinue, onOtherEmail }) => {
+const ComponentSelectedEmail = ({
+	onContinue,
+	isLoadingWithThisEmail,
+	onOtherEmail,
+}) => {
 	const email = useSearchParams("e");
 
 	return (
@@ -12,8 +17,16 @@ const ComponentSelectedEmail = ({ onContinue, onOtherEmail }) => {
 				cliquez sur "Autre".
 			</p>
 			<div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-				<button className="btn-secondary" onClick={() => onContinue()}>
-					Pour suivre
+				<button className="btn-secondary" onClick={() => onContinue({ email })}>
+					{isLoadingWithThisEmail ? (
+						<img
+							src={LoadingGif}
+							alt="chargement..."
+							style={{ width: "40px" }}
+						/>
+					) : (
+						"Pour suivre"
+					)}
 				</button>
 				<button className="btn-primary" onClick={() => onOtherEmail()}>
 					Autre

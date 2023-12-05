@@ -5,19 +5,27 @@ import { useUserData } from "../../../../context/authentification/userContext";
 const ComponentSettingsBanqueFreelance = () => {
 	const [isOpenSettingsBanqueModal, setOpenSettingsBanqueModal] =
 		React.useState(false);
-	const { data, updatedSettingsUserFreelancer } = useUserData();
+	const { data, updatedUserFreelancer } = useUserData();
 	const { infosUsers } = data;
-	const { informationsBancaires } = infosUsers;
+	const [isLoading, setIsLoading] = React.useState(false);
+	const [errorRequest, setErrorRequest] = React.useState("");
 
 	const onSubmit = async (data) => {
-		const userData = { ...infosUsers };
-		const userId = infosUsers._id;
-
-		Object.assign(userData.informationsBancaires, data);
 		try {
-			await updatedSettingsUserFreelancer(userId, userData);
+			setIsLoading(true);
+			setErrorRequest(false);
+			const userData = { ...infosUsers };
+			const userId = infosUsers._id;
+			Object.assign(infosUsers, data);
+			await updatedUserFreelancer(userId, userData);
+			closeSettingsBanqueModal();
 		} catch (error) {
 			console.log(error);
+			setErrorRequest(
+				error.response?.data.message || "Une erreur s'est produite."
+			);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -45,25 +53,25 @@ const ComponentSettingsBanqueFreelance = () => {
 				<div className="column" style={{ marginTop: "1rem" }}>
 					<div>
 						<p className="p-h3">IBAN</p>
-						<p className="p text-black-start">{informationsBancaires.IBAN}</p>
+						<p className="p text-black-start">{infosUsers.iban}</p>
 					</div>
 					<div>
 						<p className="p-h3">BIG</p>
-						<p className="p text-black-start">{informationsBancaires.BIC}</p>
+						<p className="p text-black-start">{infosUsers.bic}</p>
 					</div>
 					<div>
-						<p className="p-h3">Nom du titulaire</p>
-						<p className="p text-black-start">
-							{informationsBancaires.nomTitulaire}
-						</p>
+						<p className="p-h3">Nom du banque</p>
+						<p className="p text-black-start">{infosUsers.banque}</p>
 					</div>
 				</div>
 			</div>
 			<ComponentSettingsModalBanqueFreelance
 				isOpen={isOpenSettingsBanqueModal}
 				onRequestClose={closeSettingsBanqueModal}
+				errorRequest={errorRequest}
+				infosUsers={infosUsers}
+				isLoading={isLoading}
 				onSubmit={onSubmit}
-				informationsBancaires={informationsBancaires}
 			/>
 		</>
 	);

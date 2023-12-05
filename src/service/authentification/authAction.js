@@ -9,6 +9,9 @@ import {
 	generateAndSendResetTokenService,
 	validateResetTokenService,
 	resetPasswordService,
+	updatedProfilService,
+	updatedProfilForCompanyService,
+	updatedUserFreelancerService,
 	loginService,
 } from "./authService";
 
@@ -145,10 +148,10 @@ export const fetchDataInfosData = async (dispatch) => {
 //Updated settings
 export const updatedProfilAction = async (dispatch, formData) => {
 	try {
-		const response = await apiUrl.post("/admin/settings", formData);
+		const result = await updatedProfilService(formData);
 		dispatch({
 			type: UPDATED_PROFIL_ADMIN,
-			payload: response?.data.result,
+			payload: result?.data.result,
 		});
 	} catch (error) {
 		throw error;
@@ -165,38 +168,27 @@ export const updatedProfilForCompanyAction = async (
 	formData
 ) => {
 	try {
-		const response = await apiUrl.post(`/company/settings/${userId}`, formData);
+		const result = await updatedProfilForCompanyService(userId, formData);
 		dispatch({
 			type: UPDATED_SETTINGS_COMPANY,
-			payload: response?.data.result,
+			payload: result?.data.result,
 		});
 	} catch (error) {
 		throw error;
 	}
 };
 
-export const updatedSettingsUserFreelancerAction = async (
+export const updatedUserFreelancerAction = async (
 	dispatch,
 	userId,
 	userData
 ) => {
 	try {
-		const response = await apiUrl.post(
-			`/freelance/settings/${userId}`,
-			userData
-		);
+		const result = await updatedUserFreelancerService(userId, userData);
 		dispatch({
 			type: UPDATED_SETTINGS_FREELANCE,
-			payload: response?.data.result,
+			payload: result?.data.result,
 		});
-	} catch (error) {
-		throw error;
-	}
-};
-export const updatedUserFreelancerAction = async (userId, userData) => {
-	console.log(userData, userId);
-	try {
-		await apiUrl.post(`/freelance/settings/${userId}`, userData);
 	} catch (error) {
 		throw error;
 	}

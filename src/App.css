@@ -105,14 +105,12 @@
   text-transform: uppercase;
   font-weight: bold;
   font-size:12px;
-  line-height:0.4;
 }
 .p-error{
   color:red;
   font-family: 'Mulish', sans-serif;
   font-size:12px;
   font-weight: bold;
-  line-height:1.4;
 }
 .p-a {
   color: #3650fb;
@@ -245,12 +243,12 @@ form{
 }
 .ReactModal__Content{
   position: relative;
-  top:5rem;
+  top:3rem;
   left:8rem;
   padding: 10px 20px;
   border-radius:8px;
   background-color: white;
-  width:40%;
+  width:35%;
   min-width: 350px;
 }
 @media (max-width: 800px) {

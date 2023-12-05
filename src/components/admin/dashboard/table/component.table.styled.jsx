@@ -14,20 +14,22 @@ export const ComponentTableSstyled = styled.div`
 		gap: 12px;
 	}
 	.freelance-class {
+		display: inline;
 		text-align: center;
 		background-color: rgb(128 200 95);
 		color: rgb(255 255 255);
 		border-radius: 8px;
 		font-weight: 700;
-		padding: 2px 2px;
+		padding: 5px 20px;
 	}
 	.company-class {
+		display: inline;
 		text-align: center;
 		background-color: rgb(255 249 240);
 		color: rgb(253 142 10);
 		font-weight: 700;
 		border-radius: 8px;
-		padding: 2px 2px;
+		padding: 5px 20px;
 	}
 	button {
 		font-size: 1rem;

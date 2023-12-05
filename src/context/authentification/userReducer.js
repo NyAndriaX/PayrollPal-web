@@ -22,20 +22,20 @@ const authReducer = (state, action) => {
 				isSecureContext: true,
 			};
 		case UPDATED_PROFIL_ADMIN:
-			sessionStorage.setItem("token", action.payload?.authToken);
+			sessionStorage.setItem("token", action.payload?.token);
 			return {
 				...state,
 				infosUsers: action.payload.user,
 			};
 		case UPDATED_SETTINGS_COMPANY:
-			sessionStorage.setItem("token", action.payload?.authToken);
+			sessionStorage.setItem("token", action.payload?.token);
 			return {
 				...state,
 				infosUsers: action.payload?.user,
 				isSecureContext: true,
 			};
 		case UPDATED_SETTINGS_FREELANCE:
-			sessionStorage.setItem("token", action.payload?.authToken);
+			sessionStorage.setItem("token", action.payload?.token);
 			return {
 				...state,
 				infosUsers: action.payload?.user,

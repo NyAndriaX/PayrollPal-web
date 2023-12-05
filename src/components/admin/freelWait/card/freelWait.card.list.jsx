@@ -1,4 +1,5 @@
 import React from "react";
+import { ComponentFreelWaitCardListStyled } from "./component.freelWait.card.list.style";
 import { FreelWaitDataContext } from "../../../../context/admin/freelWait/freelWaitContext";
 import FreelWaitCard from "./freelwait.card";
 import NotData from "../../../common/NotData";
@@ -32,27 +33,29 @@ const FreelWaitCardList = () => {
 		setDeleteModalOpen(false);
 	};
 	return (
-		<div className="justify-space-between">
-			{data.length > 0 ? (
-				data?.map((data) => (
-					<>
-						<FreelWaitCard
-							data={data}
-							openAcceptModal={openAcceptModal}
-							closeAcceptModal={closeAcceptModal}
-							openDeleteModal={openDeleteModal}
-							closeDeleteModal={closeDeleteModal}
-							isDeleteModalOpen={isDeleteModalOpen}
-							isAcceptModalOpen={isAcceptModalOpen}
-							onValidation={onValidation}
-							onDelete={onDelete}
-						/>
-					</>
-				))
-			) : (
-				<NotData />
-			)}
-		</div>
+		<ComponentFreelWaitCardListStyled>
+			<div className="row">
+				{data.length > 0 ? (
+					data?.map((data) => (
+						<React.Fragment key={item._id}>
+							<FreelWaitCard
+								data={data}
+								openAcceptModal={openAcceptModal}
+								closeAcceptModal={closeAcceptModal}
+								openDeleteModal={openDeleteModal}
+								closeDeleteModal={closeDeleteModal}
+								isDeleteModalOpen={isDeleteModalOpen}
+								isAcceptModalOpen={isAcceptModalOpen}
+								onValidation={onValidation}
+								onDelete={onDelete}
+							/>
+						</React.Fragment>
+					))
+				) : (
+					<NotData />
+				)}
+			</div>
+		</ComponentFreelWaitCardListStyled>
 	);
 };
 

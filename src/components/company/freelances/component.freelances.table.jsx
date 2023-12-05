@@ -33,9 +33,12 @@ const ComponentFreelancesTable = ({
 				<td style={{ textAlign: "start" }}>
 					{data.Freelance.nom} {data.Freelance.prenom}
 				</td>
-				<td>{data.revenuMensuelFreelanceChasseur}</td>
+				<td>{data.tjm}</td>
 				<td>{data.Freelance.tel}</td>
-				<td>Développeur FullStack</td>
+				<td>
+					{" "}
+					<div className="backend-class">FullStack</div>
+				</td>
 				<td className="content-btn-action">
 					<button onClick={openDeleteModalOpen}>
 						<FontAwesomeIcon icon={faTrash} />

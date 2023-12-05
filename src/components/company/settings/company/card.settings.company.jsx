@@ -16,14 +16,16 @@ const CardSettingsCompany = ({ user, onOpenEditModalCompany }) => {
 					<p className="p text-black-start">{user.raisonSocial}</p>
 				</div>
 				<div>
-					<p className="p-h3">Numeros d'identification fiscale</p>
-					<p className="p text-black-start">
-						{user.numeroIdentificationFiscale}
-					</p>
+					<p className="p-h3">Adresse</p>
+					<p className="p text-black-start">{user.entrepriseAdresse}</p>
 				</div>
 				<div>
-					<p className="p-h3">Adresse de l'entreprise</p>
-					<p className="p text-black-start">{user.adresseEntreprise}</p>
+					<p className="p-h3">Code postal</p>
+					<p className="p text-black-start">{user.entrepriseCodePostal}</p>
+				</div>
+				<div>
+					<p className="p-h3">Ville</p>
+					<p className="p text-black-start">{user.entrepriseVille}</p>
 				</div>
 			</div>
 		</div>

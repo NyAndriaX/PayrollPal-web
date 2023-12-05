@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import LoadingCercleGif from "../../../../assets/loading-cercle-dots.gif";
 import { useForm, Controller } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudArrowDown } from "@fortawesome/free-solid-svg-icons";
+import {
+	faCloudArrowDown,
+	faEye,
+	faEyeSlash,
+} from "@fortawesome/free-solid-svg-icons";
 
 const SignupFormWidthFreelance = ({
 	isLoading,
@@ -26,6 +30,7 @@ const SignupFormWidthFreelance = ({
 	} = useForm({ mode: "onChange" });
 	const navigate = useNavigate();
 	const [cin, setCin] = React.useState(null);
+	const [showPassword, setShowPassword] = React.useState(false);
 	const [selectedFile, setSelectedFile] = React.useState(null);
 	const handleContinueUnderStepClick = async () => {
 		setCurrentUnderStep((prevStep) => prevStep + 1);
@@ -201,6 +206,33 @@ const SignupFormWidthFreelance = ({
 									<span className="p-error">{errors["cin"].message}</span>
 								)}
 							</>
+						) : fieldName === "poste" ? (
+							<>
+								<p className={`p-label ${errors[fieldName] ? "p-error" : ""}`}>
+									{fieldName.replace(/([A-Z])/g, " $1").trim()}
+								</p>
+								<Controller
+									name={fieldName}
+									control={control}
+									rules={{
+										required: "Ce champ est requis",
+									}}
+									render={({ field }) => (
+										<select
+											className={`select ${
+												errors[fieldName] ? "input-error" : ""
+											}`}
+											{...field}>
+											<option value="FullStack">Dévéloppeur FullStack</option>
+											<option value="Frontend">Dévéloppeur Frontend</option>
+											<option value="Backend">Dévéloppeur Backend</option>
+										</select>
+									)}
+								/>
+								{errors[fieldName] && (
+									<span className="p-error">{errors[fieldName].message}</span>
+								)}
+							</>
 						) : (
 							<>
 								<p className={`p-label ${errors[fieldName] ? "p-error" : ""}`}>
@@ -218,7 +250,11 @@ const SignupFormWidthFreelance = ({
 											},
 										}),
 										...(fieldName.includes("motDePasse") && {
-											minLength: 8,
+											minLength: {
+												value: 8,
+												message:
+													"Le mot de passe doit avoir au moins 8 caractères",
+											},
 											validate: isPasswordValid,
 										}),
 										...(fieldName === "confirmationDeMotDePasse" && {
@@ -246,29 +282,41 @@ const SignupFormWidthFreelance = ({
 									}}
 									render={({ field }) => (
 										<>
-											<input
-												type={
-													fieldName === "numéroNif"
-														? "number"
-														: fieldName === "motDePasse" ||
-														  fieldName === "confirmationDeMotDePasse"
-														? "password"
-														: "text"
-												}
-												className={`input ${
-													errors[fieldName] ? "input-error" : ""
-												}`}
-												onInput={(e) => {
-													if (fieldName === "numéroNif") {
-														const trimmedValue = e.target.value.slice(0, 13);
-														e.target.value = trimmedValue;
-														field.onChange(trimmedValue);
-													} else {
-														field.onChange(e);
+											<div className="input-wrapper">
+												<input
+													type={
+														fieldName === "numéroNif"
+															? "number"
+															: (fieldName === "motDePasse" && !showPassword) ||
+															  fieldName === "confirmationDeMotDePasse"
+															? "password"
+															: "text"
 													}
-												}}
-												{...field}
-											/>
+													className={`input ${
+														errors[fieldName] ? "input-error" : ""
+													}`}
+													onInput={(e) => {
+														if (fieldName === "numéroNif") {
+															const trimmedValue = e.target.value.slice(0, 13);
+															e.target.value = trimmedValue;
+															field.onChange(trimmedValue);
+														} else {
+															field.onChange(e);
+														}
+													}}
+													{...field}
+												/>
+												{fieldName === "motDePasse" && (
+													<FontAwesomeIcon
+														icon={showPassword ? faEye : faEyeSlash}
+														className="password-toggle-icon"
+														onClick={() =>
+															setShowPassword((prevState) => !prevState)
+														}
+													/>
+												)}
+											</div>
+
 											{errors[fieldName] && (
 												<span className="p-error">
 													{errors[fieldName].message}

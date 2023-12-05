@@ -17,12 +17,15 @@ const SignupFormParent = () => {
 		const formData = transformDataToFormData(data, dataCin);
 		try {
 			setLoading(true);
+			setErrorRequest("");
 			await signupFreelance(formData);
 			const dataEmailEncoded = encodeURIComponent(JSON.stringify(email));
 			navigate(`/signup/confirmation_email?e=${dataEmailEncoded}`);
-			setLoading(false);
 		} catch (error) {
-			setErrorRequest(error.response?.data.message);
+			setErrorRequest(
+				error.response?.data.message || "Une erreur s'est produite."
+			);
+		} finally {
 			setLoading(false);
 		}
 	};
@@ -38,11 +41,13 @@ const SignupFormParent = () => {
 			if (currentStep <= 0) await isEmailAvailable(email);
 			if (currentStep + 1 < steps.length) {
 				setCurrentStep((prevStep) => prevStep + 1);
-				setCurrentUnderStep(0);
 				setErrorRequest("");
+				setCurrentUnderStep(0);
 			}
 		} catch (error) {
-			setErrorRequest(error.response?.data.message);
+			setErrorRequest(
+				error.response?.data.message || "Une erreur s'est produite."
+			);
 		}
 	};
 

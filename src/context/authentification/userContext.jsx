@@ -16,7 +16,6 @@ import {
 	updatedProfilAction,
 	updatedProfilForCompanyAction,
 	updatedUserFreelancerAction,
-	updatedSettingsUserFreelancerAction,
 } from "../../service/authentification/authAction.js";
 import { authReducer } from "./userReducer.js";
 
@@ -53,10 +52,8 @@ const UserProvider = ({ children }) => {
 				updatedProfilForCompany: (userId, formData) =>
 					updatedProfilForCompanyAction(dispatch, userId, formData),
 				updatedProfil: (formData) => updatedProfilAction(dispatch, formData),
-				updatedSettingsUserFreelancer: (userId, userData) =>
-					updatedSettingsUserFreelancerAction(dispatch, userId, userData),
-				updatedUserFreelancerAction: (userId, userData) =>
-					updatedUserFreelancerAction(userId, userData),
+				updatedUserFreelancer: (userId, userData) =>
+					updatedUserFreelancerAction(dispatch, userId, userData),
 				//new url
 			}}>
 			{children}

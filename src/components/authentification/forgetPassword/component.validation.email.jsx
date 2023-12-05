@@ -21,6 +21,7 @@ const ComponentValidationtoken = ({ nexStep, form, setForm }) => {
 	const handleSubmitToken = async (e) => {
 		try {
 			setIsLoading(true);
+			setErrorRequest("");
 			await validateResetToken(e.token);
 			setForm((prevForm) => ({
 				...prevForm,
@@ -80,7 +81,14 @@ const ComponentValidationtoken = ({ nexStep, form, setForm }) => {
 					"Continuer"
 				)}
 			</button>
-			<p className="p-h3 text-center">
+			<p
+				className="p-h3 text-center"
+				style={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					gap: "4px",
+				}}>
 				Code non reçu ?{" "}
 				<span className="p-a" onClick={handleResendToken}>
 					{isLoadingResend ? (

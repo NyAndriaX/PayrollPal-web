@@ -30,8 +30,8 @@ const SidebarMenu = ({
 		ROLES_FREELANCE: ["Dashboard", "Dépôt des jours", "Paramétre"],
 		ROLES_COMPANY: [
 			"Dashboard",
-			"Validation des jours",
 			"Freelances",
+			"Validation des jours",
 			"Paramétre",
 		],
 	};
@@ -63,7 +63,7 @@ const SidebarMenu = ({
 							<p className="p-user-title-large">{user.raisonSocial}</p>
 
 							<p className="p-user-title-medium">
-								{user.nomRepresentant} {user.prenomRepresentant}
+								{user.representantNom} {user.representantPrenom}
 							</p>
 						</>
 					) : (

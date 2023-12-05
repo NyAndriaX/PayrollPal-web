@@ -27,18 +27,21 @@ const SignupFormParentCompany = () => {
 	};
 
 	const onSubmit = async (data) => {
-		const resultTransformData = transformData(data);
 		try {
 			setIsLoading(true);
+			setErrorRequest("");
+			const resultTransformData = transformData(data);
 			await signupCompany(resultTransformData);
 			const dataEmailEncoded = encodeURIComponent(
 				JSON.stringify(resultTransformData.representantEmail)
 			);
 			navigate(`/signup/confirmation_email?e=${dataEmailEncoded}`);
-			setIsLoading(false);
 		} catch (error) {
+			setErrorRequest(
+				error.response?.data.message || "Une erreur s'est produite."
+			);
+		} finally {
 			setIsLoading(false);
-			setErrorRequest(error.response?.data.error);
 		}
 	};
 

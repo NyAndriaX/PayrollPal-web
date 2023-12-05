@@ -83,13 +83,20 @@ const ComponentRetrieveNewPassword = ({ form, nexStep, setForm }) => {
 			if (formData.password !== formData.confirmationPassword) {
 				throw new Error(ERROR_MESSAGES.CONFIRMATION_MISMATCH);
 			}
-			setForm((prevForm) => ({
-				...prevForm,
-				newPassword: formData.password,
-			}));
-			await resetPassword(form);
+			const updatedForm = await new Promise((resolve) => {
+				setForm((prevForm) => {
+					const updatedForm = {
+						...prevForm,
+						newPassword: formData.password,
+					};
+					resolve(updatedForm);
+					return updatedForm;
+				});
+			});
+			await resetPassword(updatedForm);
 			navigate("/signin/mot_de_passe_oubliee/success");
 		} catch (error) {
+			console.log(error);
 			setErrorRequest(error.response?.data.message || ERROR_MESSAGES.GENERIC);
 		} finally {
 			setIsLoading(false);

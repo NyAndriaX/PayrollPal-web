@@ -90,15 +90,47 @@ const resetPasswordService = async (form) => {
 	}
 };
 
+const updatedProfilService = async (formData) => {
+	try {
+		const response = await apiUrl.post("/admin/settings", formData);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
+const updatedProfilForCompanyService = async (userId, formData) => {
+	try {
+		const response = await apiUrl.post(`/company/settings/${userId}`, formData);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
+
+const updatedUserFreelancerService = async (userId, userData) => {
+	try {
+		const response = await apiUrl.post(
+			`/freelance/settings/${userId}`,
+			userData
+		);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
+
 export {
 	isEmailAvailableService,
 	existenceEmailService,
 	signupFreelanceService,
 	signupCompanyService,
 	isEmailValidService,
+	updatedProfilService,
 	loginService,
 	resendValidationCodeService,
 	generateAndSendResetTokenService,
 	validateResetTokenService,
+	updatedProfilForCompanyService,
+	updatedUserFreelancerService,
 	resetPasswordService,
 };

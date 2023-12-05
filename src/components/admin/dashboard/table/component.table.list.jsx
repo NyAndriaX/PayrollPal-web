@@ -41,29 +41,31 @@ const ComponentTableList = () => {
 						<tbody>
 							{data.allUsers.length > 0 ? (
 								data.allUsers.map((item) => (
-									<>
+									<React.Fragment key={item._id}>
 										<ComponentTable
-											key={item._id}
+											key={`table_${item._id}`}
 											data={item}
 											openDeleteModalOpen={openDeleteModalOpen}
 										/>
 
 										<ConfirmationDeleteModal
-											key={item._id}
+											key={`modal_${item._id}`}
 											isOpen={isDeleteModalOpen}
 											onRequestClose={closeDeleteModal}
 											onDelete={() => deleteUser(item._id, item.roles)}
 										/>
-									</>
+									</React.Fragment>
 								))
 							) : (
-								<td colSpan={5}>
-									<p
-										className="p-h3 text-center"
-										style={{ fontSize: "0.85rem" }}>
-										Aucune donner disponible
-									</p>
-								</td>
+								<tr>
+									<td colSpan={5}>
+										<p
+											className="p-h3 text-center"
+											style={{ fontSize: "0.85rem" }}>
+											Aucune donnée disponible
+										</p>
+									</td>
+								</tr>
 							)}
 						</tbody>
 					</table>
