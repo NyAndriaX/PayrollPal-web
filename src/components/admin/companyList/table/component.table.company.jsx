@@ -31,10 +31,17 @@ const ComponentTableCompany = ({ item }) => {
 			<tr key={item._id}>
 				<td style={{ textAlign: "start" }}>{item.raisonSocial}</td>
 				<td>
-					{item.nomRepresentant} {item.prenomRepresentant}
+					{item.representantNom} {item.representantPrenom}
 				</td>
-				<td>{item.emailRepresentant}</td>
-				<td>{item.isEmailConfirmed ? "validé" : "non validé"}</td>
+				<td>{item.representantEmail}</td>
+				<td>
+					<div
+						className={
+							item.isEmailConfirmed ? "valide-class" : "unValide-class"
+						}>
+						{item.isEmailConfirmed ? "validé" : "non validé"}
+					</div>
+				</td>
 				<td className="content-btn-action">
 					<button onClick={openModalDelete}>
 						<FontAwesomeIcon icon={faTrash} />

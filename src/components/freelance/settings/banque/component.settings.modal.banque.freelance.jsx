@@ -1,6 +1,7 @@
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
 import Modal from "react-modal";
+import { useForm, Controller } from "react-hook-form";
+import LoadingGif from "../../../../assets/loading-cercle-dots.gif";
 
 Modal.setAppElement("#root");
 
@@ -8,7 +9,9 @@ const ComponentSettingsModalBanqueFreelance = ({
 	isOpen,
 	onRequestClose,
 	onSubmit,
-	informationsBancaires,
+	errorRequest,
+	infosUsers,
+	isLoading,
 }) => {
 	const {
 		control,
@@ -21,7 +24,6 @@ const ComponentSettingsModalBanqueFreelance = ({
 	const handleConfirmAccept = () => {
 		const data = getValues();
 		onSubmit(data);
-		onRequestClose();
 	};
 	const handleCancel = () => {
 		reset();
@@ -36,54 +38,65 @@ const ComponentSettingsModalBanqueFreelance = ({
 			className="modal">
 			<p className="p-h1">Information Bancaires</p>
 			<p className="p-h3 text-center">Editer mon information bancaire</p>
+			{errorRequest && (
+				<p className="text-center p-label p-error">{errorRequest}</p>
+			)}
 			<form onSubmit={handleSubmit(handleConfirmAccept)}>
 				<div>
-					<p className="p-label">IBAN</p>
+					<p className={`p-label ${errors.iban ? "p-error" : ""}`}>IBAN</p>
 					<Controller
-						name="IBAN"
+						name="iban"
 						control={control}
-						defaultValue={informationsBancaires.IBAN}
+						defaultValue={infosUsers.iban}
 						render={({ field }) => <input className="input" {...field} />}
 						rules={{
-							required: "IBAN is required",
+							required: "La code IBAN est requis.",
 						}}
 					/>
-					{errors.IBAN && <p className="p-error">{errors.IBAN.message}</p>}
+					{errors.iban && <p className="p-error">{errors.iban.message}</p>}
 				</div>
 				<div>
-					<p className="p-label">BIG</p>
+					<p className={`p-label ${errors.bic ? "p-error" : ""}`}>BIC</p>
 					<Controller
-						name="BIC"
+						name="bic"
 						control={control}
-						defaultValue={informationsBancaires.BIC}
+						defaultValue={infosUsers.bic}
 						render={({ field }) => <input className="input" {...field} />}
 						rules={{
-							required: "BIC is required",
+							required: "La code BIC est requis.",
 						}}
 					/>
-					{errors.BIC && <p className="p-error">{errors.BIC.message}</p>}
+					{errors.bic && <p className="p-error">{errors.bic.message}</p>}
 				</div>
 				<div>
-					<p className="p-label">Nom titulaire</p>
+					<p className={`p-label ${errors.banque ? "p-error" : ""}`}>
+						Nom du banque
+					</p>
 					<Controller
-						name="nomTitulaire"
+						name="banque"
 						control={control}
-						defaultValue={informationsBancaires.nomTitulaire}
+						defaultValue={infosUsers.banque}
 						render={({ field }) => <input className="input" {...field} />}
 						rules={{
-							required: "Nom titulaire is required",
+							required: "Le nom du banque est requis.",
 						}}
 					/>
-					{errors.nomTitulaire && (
-						<p className="p-error">{errors.nomTitulaire.message}</p>
-					)}
+					{errors.banque && <p className="p-error">{errors.banque.message}</p>}
 				</div>
-				<div className="justify-space-between">
+				<div className="justify-space-between" style={{ marginTop: "15px" }}>
 					<button
 						onClick={handleConfirmAccept}
 						className="btn-secondary"
 						disabled={!isValid}>
-						Confirmer
+						{isLoading ? (
+							<img
+								src={LoadingGif}
+								alt="chargement..."
+								style={{ width: "40px" }}
+							/>
+						) : (
+							"Valider"
+						)}
 					</button>
 					<button onClick={handleCancel} className="btn-primary">
 						Annuler

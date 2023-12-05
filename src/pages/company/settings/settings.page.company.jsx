@@ -21,7 +21,7 @@ const SettingsPageCompany = () => {
 		try {
 			await updatedProfilForCompany(userId, formData);
 		} catch (error) {
-			console.log(error);
+			throw error;
 		}
 	};
 
@@ -34,7 +34,7 @@ const SettingsPageCompany = () => {
 		try {
 			await updatedProfilForCompany(userId, formData);
 		} catch (error) {
-			console.log(error);
+			throw error;
 		}
 	};
 

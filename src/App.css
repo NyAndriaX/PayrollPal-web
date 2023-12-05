@@ -15,6 +15,7 @@
   width:48px;
   height: 48px;
   border-radius: 32px;
+  cursor:pointer;
   background-color: rgb(55 81 255);
 }
 @media (max-width: 600px) {
@@ -104,14 +105,12 @@
   text-transform: uppercase;
   font-weight: bold;
   font-size:12px;
-  line-height:0.4;
 }
 .p-error{
   color:red;
   font-family: 'Mulish', sans-serif;
   font-size:12px;
   font-weight: bold;
-  line-height:1.4;
 }
 .p-a {
   color: #3650fb;
@@ -192,7 +191,6 @@ form{
   width:100%;
   display:flex;
   justify-content: space-around;
-  align-items: center;
 }
 .justify-space-between{
   display:flex;
@@ -210,6 +208,10 @@ form{
   gap: 12px;
   width:100%;
 }
+.no-border {
+  border: none !important;
+}
+
 @media (max-width: 800px) {
   .row-card-2 {
     display:flex;
@@ -241,12 +243,12 @@ form{
 }
 .ReactModal__Content{
   position: relative;
-  top:5rem;
+  top:3rem;
   left:8rem;
   padding: 10px 20px;
   border-radius:8px;
   background-color: white;
-  width:40%;
+  width:35%;
   min-width: 350px;
 }
 @media (max-width: 800px) {
@@ -296,7 +298,7 @@ form{
 		height: 40px !important;
 	}
 	.btn-primary {
-		border: 1px solid #3650fb !important;
+		border: 1px solid #3650fb ;
 		border-radius: 8px !important;
 		color: #3650fb !important;
 		background-color: white !important;
@@ -306,6 +308,7 @@ form{
 	}
 .btn-error{
   background-color: red;
+  font-weight: 800;
 }
 	@media (max-width: 600px) {
 		.row {
@@ -365,4 +368,11 @@ form{
     max-width: initial;
     min-width: 260px;
     width: 24%;
+  }
+  .input-wrapper{
+    display:flex;
+    align-items: center;
+  }
+  .password-toggle-icon{
+    margin-left: -30px;
   }

@@ -7,6 +7,24 @@ export const ComponentTableCompanyStyled = styled.div`
 	th {
 		text-align: end;
 	}
+	.valide-class {
+		display: inline;
+		text-align: center;
+		background-color: rgb(128 200 95);
+		color: rgb(255 255 255);
+		border-radius: 8px;
+		font-weight: 700;
+		padding: 5px 20px;
+	}
+	.inValide-class {
+		display: inline;
+		text-align: center;
+		background-color: rgb(255 249 240);
+		color: rgb(253 142 10);
+		font-weight: 700;
+		border-radius: 8px;
+		padding: 5px 20px;
+	}
 	.content-btn-action {
 		display: flex;
 		flex-direction: row;

@@ -1,12 +1,28 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import SignInPage from "../pages/authentification/signInPage/signInPage.jsx";
-import SignUpPage from "../pages/authentification/signUpPage/indexPage.jsx";
+import SigninPage from "../pages/authentification/signinPage/signinPage.jsx";
+import SignupPage from "../pages/authentification/signupPage/indexPage.jsx";
+import ForgetPasswordPage from "../pages/authentification/forgetPassword/forget.password.page.jsx";
+import SignupSuccessCompanyPage from "../pages/authentification/signupPage/success/signup.success.company.page.jsx";
+import SuccessChangePasswordPage from "../pages/authentification/forgetPassword/success.change.password.page.jsx";
 import ValidationEmailPage from "../pages/authentification/validationEmail/validationEmail.page.jsx";
+import SignupSuccessFreelancePage from "../pages/authentification/signupPage/success/signup.success.freelance.page.jsx";
 import { useUserData } from "../context/authentification/userContext.jsx";
 import HomeLayout from "../layout";
 
 const routes = [
+	{
+		path: "/signin/mot_de_passe_oubliee",
+		element: <ForgetPasswordPage />,
+		isAuthPage: true,
+		isPrivate: false,
+	},
+	{
+		path: "/signin/mot_de_passe_oubliee/success",
+		element: <SuccessChangePasswordPage />,
+		isAuthPage: true,
+		isPrivate: false,
+	},
 	{
 		path: "/signup/confirmation_email",
 		element: <ValidationEmailPage />,
@@ -14,13 +30,29 @@ const routes = [
 		isPrivate: false,
 	},
 	{
+		path: "/signup/confirmation_email",
+		element: <ValidationEmailPage />,
+		isAuthPage: true,
+		isPrivate: false,
+	},
+	{
+		path: "/signup/success/company",
+		element: <SignupSuccessCompanyPage />,
+		isPrivate: false,
+	},
+	{
+		path: "/signup/success/freelance",
+		element: <SignupSuccessFreelancePage />,
+		isPrivate: false,
+	},
+	{
 		path: "/signup/*",
-		element: <SignUpPage />,
+		element: <SignupPage />,
 		isPrivate: false,
 	},
 	{
 		path: "/login",
-		element: <SignInPage />,
+		element: <SigninPage />,
 		isAuthPage: true,
 		isPrivate: false,
 	},
