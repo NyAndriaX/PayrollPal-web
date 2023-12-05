@@ -49,7 +49,7 @@ const ComponentTablePlacement = ({ item }) => {
 				<td>
 					{item.FreelanceChasseur?.nom} {item.FreelanceChasseur?.prenom}
 				</td>
-				<td>{item.revenuMensuelFreelanceChasseur}</td>
+				<td>{item.tjm}</td>
 				<td className="content-btn-action">
 					<button onClick={openDeleteModal}>
 						<FontAwesomeIcon icon={faTrash} />

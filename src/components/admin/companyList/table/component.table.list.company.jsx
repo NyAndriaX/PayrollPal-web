@@ -30,7 +30,7 @@ const ComponentTableCompanyList = () => {
 					style={{ justifyContent: "space-between", gap: "2%" }}>
 					<p className="p-h3">Listes de toutes les entreprises</p>
 
-					<div className="row-btn-2" style={{ gap: "2% " }}>
+					{/* <div className="row-btn-2" style={{ gap: "2% " }}>
 						<input
 							type="text"
 							style={{ flex: 1 }}
@@ -42,7 +42,7 @@ const ComponentTableCompanyList = () => {
 						<button className="btn-primary" style={{ width: "auto" }}>
 							rechercher
 						</button>
-					</div>
+					</div> */}
 				</div>
 				<div className="table-container">
 					<table>
@@ -59,16 +59,20 @@ const ComponentTableCompanyList = () => {
 							{searchText === "" ? (
 								companyList.length !== 0 ? (
 									companyList.map((item) => (
-										<ComponentTableCompany key={item._id} item={item} />
+										<React.Fragment key={item._id}>
+											<ComponentTableCompany key={item._id} item={item} />
+										</React.Fragment>
 									))
 								) : (
-									<td colspan={5}>
-										<p
-											className="p-h3 text-center"
-											style={{ fontSize: "0.85rem" }}>
-											Aucune entreprise trouvée.
-										</p>
-									</td>
+									<tr>
+										<td colSpan={5}>
+											<p
+												className="p-h3 text-center"
+												style={{ fontSize: "0.85rem" }}>
+												Aucune donnée disponible
+											</p>
+										</td>
+									</tr>
 								)
 							) : filteredCompanies.length > 0 ? (
 								filteredCompanies.map((item) => (

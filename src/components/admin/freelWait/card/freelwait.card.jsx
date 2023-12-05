@@ -13,7 +13,7 @@ const FreelWaitCard = ({
 	onDelete,
 }) => {
 	return (
-		<div className="card-mini" key={data._id}>
+		<div className="card" key={data._id}>
 			<div style={{ marginBottom: "1rem" }}>
 				<p className="p-h3 text-center" style={{ color: "black" }}>
 					{data.prenom} {data.nom}

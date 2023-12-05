@@ -8,6 +8,7 @@ import "./App.css";
 
 function AppWrapper() {
 	const { data } = useUserData();
+
 	return data.isSecureContext ? (
 		<Router>
 			<Routes>

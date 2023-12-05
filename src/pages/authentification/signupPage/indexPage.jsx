@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import UserChoicePage from "../userChoicePage/userChoice.page.jsx";
-import SignUpWithCompany from "./company/signUpWithCompany";
-import SignUpWithFreelance from "./freelance/signUpWithFreelance";
+import SignUpWithCompany from "./company/signupWithCompany";
+import SignUpWithFreelance from "./freelance/signupWithFreelance";
 
 const SignUpPage = () => {
 	return (

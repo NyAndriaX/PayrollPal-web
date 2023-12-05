@@ -3,10 +3,12 @@ import ComponentSettingsModalProfilFreelance from "./component.settings.modal.pr
 import { useUserData } from "../../../../context/authentification/userContext";
 
 const ComponentSettingsProfilFreelance = () => {
-	const { data, updatedSettingsUserFreelancer } = useUserData();
-	const { infosUsers } = data;
+	const { data, updatedUserFreelancer } = useUserData();
 	const [isOpenModalSettingProfil, setOpenModalSettingProfil] =
 		React.useState(false);
+	const [isLoading, setIsLoading] = React.useState(false);
+	const [errorRequest, setErrorRequest] = React.useState("");
+	const { infosUsers } = data;
 
 	const openModalSettingProfil = () => {
 		setOpenModalSettingProfil(true);
@@ -16,14 +18,20 @@ const ComponentSettingsProfilFreelance = () => {
 	};
 
 	const onSubmit = async (data) => {
-		const userData = { ...infosUsers };
-		const userId = infosUsers._id;
-
-		Object.assign(userData, data);
 		try {
-			await updatedSettingsUserFreelancer(userId, userData);
+			setIsLoading(true);
+			setErrorRequest("");
+			const userData = { ...infosUsers };
+			const userId = infosUsers._id;
+			Object.assign(userData, data);
+			await updatedUserFreelancer(userId, userData);
+			closeModalSettingProfil();
 		} catch (error) {
-			console.log(error);
+			setErrorRequest(
+				error.response?.data.message || "Une erreur s'est produite."
+			);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -39,24 +47,37 @@ const ComponentSettingsProfilFreelance = () => {
 						Edit
 					</button>
 				</div>
+
 				<div className="column" style={{ marginTop: "1rem" }}>
 					<div>
-						<p className="p-h3">Nom</p>
-						<p className="p text-black-start">{infosUsers.nom}</p>
-					</div>
-					<div>
-						<p className="p-h3">Prenom</p>
-						<p className="p text-black-start">{infosUsers.prenom}</p>
+						<p className="p-h3">Nom et prenom</p>
+						<p className="p text-black-start">
+							{infosUsers.nom} {infosUsers.prenom}
+						</p>
 					</div>
 					<div>
 						<p className="p-h3">Email</p>
 						<p className="p text-black-start">{infosUsers.email}</p>
+					</div>
+					<div>
+						<p className="p-h3">Adresse</p>
+						<p className="p text-black-start">{infosUsers.adresse}</p>
+					</div>
+					<div>
+						<p className="p-h3">Code postal</p>
+						<p className="p text-black-start">{infosUsers.codePostal}</p>
+					</div>
+					<div>
+						<p className="p-h3">Ville</p>
+						<p className="p text-black-start">{infosUsers.ville}</p>
 					</div>
 				</div>
 			</div>
 			<ComponentSettingsModalProfilFreelance
 				isOpen={isOpenModalSettingProfil}
 				onRequestClose={closeModalSettingProfil}
+				errorRequest={errorRequest}
+				isLoading={isLoading}
 				onSubmit={onSubmit}
 				user={infosUsers}
 			/>

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPersonWalkingLuggage } from "@fortawesome/free-solid-svg-icons";
 import DynamicSelect from "../../../common/dynamicSelect";
 import { usePlacementData } from "../../../../context/admin/placement/placementContext";
+import LoadingGif from "../../../../assets/loading-cercle-dots.gif";
 
 const ComponentCardPlacementJoin = () => {
 	const { data, addNewPlacement } = usePlacementData();
@@ -17,7 +18,7 @@ const ComponentCardPlacementJoin = () => {
 		getValues,
 		reset,
 	} = useForm({ mode: "onChange" });
-	const [error, setError] = React.useState("");
+	const [errorRequest, setErrorRequest] = React.useState("");
 	const [isLoading, setLoading] = React.useState(false);
 
 	const transformData = (data) => {
@@ -25,7 +26,7 @@ const ComponentCardPlacementJoin = () => {
 			idFreelance: data.Freelance.value || "",
 			idFreelanceChasseur: data.FreelanceChasseur.value || "",
 			idEntreprise: data.Entreprise.value || "",
-			revenuMensuelFreelanceChasseur: data.FreelanceChasseurRevenu,
+			tjm: data.tjm,
 		};
 		return dataObject;
 	};
@@ -33,11 +34,13 @@ const ComponentCardPlacementJoin = () => {
 		const value = transformData(data);
 		try {
 			setLoading(true);
+			setErrorRequest("");
 			await addNewPlacement(value);
-			setError("");
-			setLoading(false);
 		} catch (error) {
-			setError(error?.response?.data.Error);
+			setErrorRequest(
+				error.response?.data.message || "Une erreur s'est produite."
+			);
+		} finally {
 			setLoading(false);
 		}
 	};
@@ -97,9 +100,9 @@ const ComponentCardPlacementJoin = () => {
 								/>
 							</div>
 							<div>
-								<p className="p-label">Revenu du freelance chasseur</p>
+								<p className="p-label">Taux journaliére Moyens</p>
 								<Controller
-									name="FreelanceChasseurRevenu"
+									name="tjm"
 									control={control}
 									rules={{ required: "Ce champ est  requis" }}
 									render={({ field }) => (
@@ -110,10 +113,8 @@ const ComponentCardPlacementJoin = () => {
 												className="input"
 												{...field}
 											/>
-											{errors.FreelanceChasseurRevenu && (
-												<span className="p-error">
-													{errors.FreelanceChasseurRevenu.message}
-												</span>
+											{errors.tjm && (
+												<span className="p-error">{errors.tjm.message}</span>
 											)}
 										</>
 									)}
@@ -183,9 +184,7 @@ const ComponentCardPlacementJoin = () => {
 													pour intégrer l'entreprise{" "}
 													{getValues("Entreprise")?.label || "non spécifié"} et
 													qui dois avoir une revenu mensuel de pour cet
-													freelanceur{" "}
-													{getValues("FreelanceChasseurRevenu") ||
-														"non spécifié"}{" "}
+													freelanceur {getValues("tjm") || "non spécifié"}{" "}
 													Arriary.
 												</>
 											</>
@@ -195,9 +194,19 @@ const ComponentCardPlacementJoin = () => {
 							</div>
 						</div>
 						<div style={{ marginTop: "12px" }}>
-							<p className="p-error text-center">{error && <>{error}</>}</p>
+							{errorRequest && (
+								<p className="text-center p-label p-error">{errorRequest}</p>
+							)}
 							<button className="btn-secondary" onClick={handleSubmit}>
-								{isLoading ? <>Chargement</> : <>Join</>}
+								{isLoading ? (
+									<img
+										src={LoadingGif}
+										alt="chargement..."
+										style={{ width: "40px" }}
+									/>
+								) : (
+									"Placer"
+								)}
 							</button>
 						</div>
 					</div>

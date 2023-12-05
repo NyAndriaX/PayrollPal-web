@@ -1,12 +1,15 @@
+import React from "react";
+import { apiConfig } from "../../../../config/apiConfig";
+import { useUserData } from "../../../../context/authentification/userContext";
+
 const ComponentSettingsJustificatifFreelance = () => {
+	const { data } = useUserData();
+	const { infosUsers } = data;
 	return (
 		<div className="card">
 			{" "}
 			<div className="justify-space-between">
 				<p className="p-h2 text-black-start">Justificatifs</p>
-				<button className="btn-secondary" style={{ width: "auto" }}>
-					Edit
-				</button>
 			</div>
 			<div className="column" style={{ marginTop: "1rem" }}>
 				<div>
@@ -14,6 +17,24 @@ const ComponentSettingsJustificatifFreelance = () => {
 					<p className="p text-black-start">
 						Fichier uploadé le 13 septembre 2022
 					</p>
+				</div>
+				<div
+					style={{
+						display: "flex",
+						alignItems: "center",
+						gap: "20px",
+					}}>
+					<img
+						src={apiConfig.api_url_backend + "/cin/" + infosUsers.cin}
+						style={{
+							width: "100px",
+							height: "50px",
+							borderRadius: "8px",
+							objectFit: "cover",
+						}}
+						alt="CIN/Passport"
+					/>
+					<p className="p-a">Voir tous</p>
 				</div>
 			</div>
 		</div>

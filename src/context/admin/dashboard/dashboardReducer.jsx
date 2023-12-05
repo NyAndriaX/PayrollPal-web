@@ -28,8 +28,9 @@ const dashboardReducer = (state, action) => {
 			);
 			return {
 				...state,
-				allUsers: dataFreelance,
+				allUsers: dataFreelance || [],
 			};
+
 		case FILTER_DATA_IN_COMPANY:
 			const dataCompany = state.notTouchUsersdata?.filter(
 				(user) => user.roles === "ROLES_COMPANY"

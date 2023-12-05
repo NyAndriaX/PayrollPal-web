@@ -1,6 +1,7 @@
 import { ComponentFreelancesTableStyled } from "./component.freelances.table.styled";
 import { useCompanyDashboardData } from "../../../context/company/dashboard/CompanyDashboardContext";
 import ComponentFreelancesTable from "./component.freelances.table";
+import React from "react";
 
 const ComponentFreelancesTableList = () => {
 	const { companyData, deleteOnePlacementInThisEntreprise } =
@@ -13,7 +14,6 @@ const ComponentFreelancesTableList = () => {
 			<div className="content-table">
 				<div className="justify-space-between">
 					<p className="p-title-table">Listes des Freelanceurs</p>
-					<p className="p-a">Voir tous</p>
 				</div>
 				<div className="table-container">
 					<table>
@@ -29,7 +29,7 @@ const ComponentFreelancesTableList = () => {
 						<tbody>
 							{freelances.length > 0 ? (
 								freelances.map((item) => (
-									<>
+									<React.Fragment key={item._id}>
 										<ComponentFreelancesTable
 											key={item.id}
 											data={item}
@@ -37,16 +37,18 @@ const ComponentFreelancesTableList = () => {
 												deleteOnePlacementInThisEntreprise
 											}
 										/>
-									</>
+									</React.Fragment>
 								))
 							) : (
-								<td colSpan={5}>
-									<p
-										className="p-h3 text-center"
-										style={{ fontSize: "0.85rem" }}>
-										Aucune donner disponible
-									</p>
-								</td>
+								<tr>
+									<td colSpan={5}>
+										<p
+											className="p-h3 text-center"
+											style={{ fontSize: "0.85rem" }}>
+											Aucune donner disponible
+										</p>
+									</td>
+								</tr>
 							)}
 						</tbody>
 					</table>

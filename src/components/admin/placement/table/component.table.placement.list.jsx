@@ -22,23 +22,27 @@ const ComponentTablePlacementList = () => {
 								<th style={{ textAlign: "start" }}>Raison social</th>
 								<th>Freelanceur</th>
 								<th>Freelanceur Chasseur</th>
-								<th name="FreelanceurChasseurRevenu">Revenu mensuel</th>
+								<th name="FreelanceurChasseurRevenu">T.J.M</th>
 								<th name="Actions">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
 							{placementData.length > 0 ? (
 								placementData.map((item) => (
-									<ComponentTablePlacement key={item._id} item={item} />
+									<React.Fragment key={item._id}>
+										<ComponentTablePlacement key={item._id} item={item} />
+									</React.Fragment>
 								))
 							) : (
-								<td colSpan={5}>
-									<p
-										className="p-h3 text-center"
-										style={{ fontSize: "0.85rem" }}>
-										Aucune donner disponible
-									</p>
-								</td>
+								<tr>
+									<td colSpan={5}>
+										<p
+											className="p-h3 text-center"
+											style={{ fontSize: "0.85rem" }}>
+											Aucune donnée disponible
+										</p>
+									</td>
+								</tr>
 							)}
 						</tbody>
 					</table>

@@ -13,21 +13,32 @@ export const ComponentFreelancesTableStyled = styled.div`
 		justify-content: end;
 		gap: 12px;
 	}
-	.freelance-class {
+	.frontend-class {
+		display: inline;
 		text-align: center;
 		background-color: rgb(128 200 95);
 		color: rgb(255 255 255);
 		border-radius: 8px;
 		font-weight: 700;
-		padding: 2px 2px;
+		padding: 5px 20px;
 	}
-	.company-class {
+	.backend-class {
+		display: inline;
+		text-align: center;
+		background-color: #3650fb;
+		color: rgb(255 255 255);
+		border-radius: 8px;
+		font-weight: 700;
+		padding: 5px 20px;
+	}
+	.fullStack-class {
+		display: inline;
 		text-align: center;
 		background-color: rgb(255 249 240);
 		color: rgb(253 142 10);
 		font-weight: 700;
 		border-radius: 8px;
-		padding: 2px 2px;
+		padding: 5px 20px;
 	}
 	button {
 		font-size: 1rem;

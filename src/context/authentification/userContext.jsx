@@ -1,15 +1,21 @@
 import React, { createContext, useContext, useReducer } from "react";
 import {
-	checkedEmailAction,
 	loginAction,
+	resendValidationCodeAction,
+	generateAndSendResetTokenAction,
+	validateResetTokenAction,
+	resetPasswordAction,
+	//new url
+	isEmailValidAction,
+	isEmailAvailableAction,
+	existenceEmailAction,
 	signupFreelanceAction,
 	signupCompanyAction,
-	validationEmailAction,
 	fetchDataInfosData,
 	logoutAction,
 	updatedProfilAction,
 	updatedProfilForCompanyAction,
-	updatedSettingsUserFreelancerAction,
+	updatedUserFreelancerAction,
 } from "../../service/authentification/authAction.js";
 import { authReducer } from "./userReducer.js";
 
@@ -30,17 +36,25 @@ const UserProvider = ({ children }) => {
 		<UserContext.Provider
 			value={{
 				data,
+				logout: () => logoutAction(dispatch),
+				signupCompany: (data) => signupCompanyAction(data),
+				resendValidationCode: (email) => resendValidationCodeAction(email),
+				login: (userData) => loginAction(dispatch, userData),
+				signupFreelance: (data) => signupFreelanceAction(data),
+				existenceEmail: (email) => existenceEmailAction(email),
+				isEmailValid: (data) => isEmailValidAction(data),
+				isEmailAvailable: (email) => isEmailAvailableAction(email),
+				generateAndSendResetToken: (email) =>
+					generateAndSendResetTokenAction(email),
+				validateResetToken: (token) => validateResetTokenAction(token),
+				resetPassword: (form) => resetPasswordAction(form),
+				//not verifier
 				updatedProfilForCompany: (userId, formData) =>
 					updatedProfilForCompanyAction(dispatch, userId, formData),
 				updatedProfil: (formData) => updatedProfilAction(dispatch, formData),
-				updatedSettingsUserFreelancer: (userId, userData) =>
-					updatedSettingsUserFreelancerAction(dispatch, userId, userData),
-				checkedEmail: (email) => checkedEmailAction(dispatch, email),
-				login: (userData) => loginAction(dispatch, userData),
-				signupCompany: (data) => signupCompanyAction(data),
-				signupFreelance: (data) => signupFreelanceAction(data),
-				validationEmail: (data) => validationEmailAction(data),
-				logout: () => logoutAction(dispatch),
+				updatedUserFreelancer: (userId, userData) =>
+					updatedUserFreelancerAction(dispatch, userId, userData),
+				//new url
 			}}>
 			{children}
 		</UserContext.Provider>

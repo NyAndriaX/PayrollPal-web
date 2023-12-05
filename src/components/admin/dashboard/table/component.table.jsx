@@ -5,10 +5,10 @@ const ComponentTable = ({ data, openDeleteModalOpen }) => {
 	return (
 		<tr key={data.id}>
 			<td style={{ textAlign: "start" }}>
-				{data.nom ? data.nom : data.nomRepresentant}
+				{data.nom ? data.nom : data.representantNom}
 			</td>
-			<td>{data.prenom ? data.prenom : data.prenomRepresentant}</td>
-			<td>{data.email ? data.email : data.emailRepresentant}</td>
+			<td>{data.prenom ? data.prenom : data.representantPrenom}</td>
+			<td>{data.email ? data.email : data.representantEmail}</td>
 			<td>
 				<div
 					className={
@@ -16,7 +16,7 @@ const ComponentTable = ({ data, openDeleteModalOpen }) => {
 							? "freelance-class"
 							: "company-class"
 					}>
-					{data.roles}
+					{data.roles === "ROLES_FREELANCE" ? "Freelance" : "Company"}
 				</div>
 			</td>
 			<td className="content-btn-action">

@@ -12,7 +12,7 @@ const ComponentDashboardCompany = () => {
 					<p className="p-h3 text-center">Nombre des Freelances</p>
 					<p
 						className="p-indicateur-primary text-center"
-						style={{ color: "black" }}>
+						style={{ color: "black", fontFamily: "Multer" }}>
 						{nbrFreelancer}
 					</p>
 				</div>
