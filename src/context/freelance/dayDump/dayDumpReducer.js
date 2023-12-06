@@ -2,6 +2,7 @@ import {
 	FETCH_PLACEMENT_BY_FREELANCE_ID,
 	FETCH_DAY_DUMP_IN_THIS_MONTH,
 	DEPOSIT_DAYDUMP,
+	FETCH_ALL_DAY_DUMP,
 } from "../../../service/freelance/freelanceAction";
 
 const dayDumpReducer = (state, action) => {
@@ -10,6 +11,11 @@ const dayDumpReducer = (state, action) => {
 			return {
 				...state,
 				placement: action.payload,
+			};
+		case FETCH_ALL_DAY_DUMP:
+			return {
+				...state,
+				alldayDump: action.payload,
 			};
 		case FETCH_DAY_DUMP_IN_THIS_MONTH:
 			return {

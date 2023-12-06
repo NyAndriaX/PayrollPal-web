@@ -9,6 +9,17 @@ const fetchDayDumpInThisMonthService = async (placementId) => {
 	}
 };
 
+const fetchDayValidityService = async (placementId) => {
+	try {
+		const response = await apiUrl.get(
+			`/freelance/allDayValidity/${placementId}`
+		);
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};
+
 const fetchPlacementByFreelanceIdService = async (idFreelance) => {
 	try {
 		const response = await apiUrl.get(`/freelance/${idFreelance}`);
@@ -27,6 +38,7 @@ const depositDayDumpService = async (data) => {
 };
 
 export {
+	fetchDayValidityService,
 	fetchDayDumpInThisMonthService,
 	fetchPlacementByFreelanceIdService,
 	depositDayDumpService,

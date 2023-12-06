@@ -2,6 +2,7 @@ import React, { createContext, useContext, useReducer } from "react";
 import {
 	fetchPlacementByFreelanceIdAction,
 	fetchDayDumpInThisMonthAction,
+	fetchDayValidityAction,
 	depositDayDumpAction,
 } from "../../../service/freelance/freelanceAction";
 import { dayDumpReducer } from "./dayDumpReducer";
@@ -11,6 +12,7 @@ const initialState = {
 	nbrDeJours: 0,
 	isDepositDayInThisMonth: false,
 	placement: null,
+	alldayDump: [],
 };
 
 export const DayDumpDataContext = createContext();
@@ -28,11 +30,9 @@ export const DayDumpProvider = ({ children }) => {
 				);
 
 				await fetchDayDumpInThisMonthAction(dispatch, placement._id);
+				await fetchDayValidityAction(dispatch, placement._id);
 			} catch (error) {
-				console.error(
-					"Une erreur s'est produite lors du chargement des données :",
-					error.message
-				);
+				throw error;
 			}
 		};
 

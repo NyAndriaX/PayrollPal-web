@@ -380,14 +380,58 @@ form{
 		font-family: "Mulish", sans-serif;
 		margin: 0;
 	}
+
+
   .react-datepicker-container{
-    display: flex;
-    justify-content: right;
-    position: fixed;
+    border:1px solid #eaeaea;
+    border-radius:8px;
+    position: absolute;
+    padding:5px 15px;
+    background-color: white;
     max-width: initial;
-    min-width: 260px;
-    width: 24%;
+    min-width: 220px;
+    margin-left:3rem;
+    z-index:2;
   }
+    .react-datepicker{
+    border:none !important
+  }
+  .react-datepicker__header {
+    background-color:white !important;
+    border-bottom:1px solid #eaeaea !important;
+  }
+  .react-datepicker-container-btn{
+    display:flex;
+    align-items: center;
+    border-top:1px solid #eaeaea;
+    justify-content: space-between;
+  }
+  .react-datepicker__day-names{
+    margin-top: 1rem;
+  }
+  .react-datepicker__day-name{
+    color:rgb(255, 138, 0) !important;
+  }
+  .react-datepicker-container-btn button{
+    flex:1;
+    color:#3650fb;
+    border:none;
+    padding:5px 5px;
+    background-color: white;
+  }
+  .react-datepicker__header__dropdown{
+    display: none;
+  }
+.apexcharts-toolbar{
+  display: flex !important;
+  z-index:1 !important
+}
+
+@media (max-width: 500px) {
+.apexcharts-toolbar{
+  display: none !important;
+}
+}
   .input-wrapper{
     display:flex;
     align-items: center;

@@ -70,7 +70,7 @@ const ComponentDayValidityCompany = ({
 				</div>
 				<p>Mois: {mois}</p>
 				<p>Nb de jours : {item._doc?.nbrDeJours}</p>
-				<p>Total à régler : {item._doc?.TotalARegler} £</p>
+				<p>Total à régler : {item._doc?.TotalARegler} Arriary</p>
 
 				{status === "waiting" ? (
 					<div className="justify-space-between" style={{ marginTop: "1rem" }}>
