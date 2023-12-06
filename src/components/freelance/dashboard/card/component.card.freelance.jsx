@@ -17,14 +17,26 @@ const ComponentCardFreelance = () => {
 			<div className="justify-space-between" style={{ alignItems: "stretch" }}>
 				<div className="card" style={{ maxWidth: "initial" }}>
 					<p className="p-h3">Contrat</p>
-					<p className="p" style={{ color: "black" }}>
-						vous travaillez pour l'entreprise{" "}
-						<span style={{ color: "#3650fb" }}>agriculture.</span>
-					</p>
-					<p className="p" style={{ color: "black" }}>
-						Votre taux journalier moyen est de{" "}
-						<span style={{ color: "#3650fb" }}>213£.</span>
-					</p>
+					{placement ? (
+						<div>
+							<p className="p" style={{ color: "black" }}>
+								vous travaillez pour l'entreprise{" "}
+								<span style={{ color: "#3650fb" }}>
+									{placement?.entreprise.raisonSocial}.
+								</span>
+							</p>
+							<p className="p" style={{ color: "black" }}>
+								Votre taux journalier moyen est de{" "}
+								<span style={{ color: "#3650fb" }}>
+									{placement?.tjm || ""} Ariary.
+								</span>
+							</p>
+						</div>
+					) : (
+						<p className="p">
+							vous n'êtes pas encore dans une entreprise actuellement.
+						</p>
+					)}
 				</div>
 				<div className="card" style={{ maxWidth: "initial" }}>
 					<p className="p-h3-secondary">Jours déposés</p>
