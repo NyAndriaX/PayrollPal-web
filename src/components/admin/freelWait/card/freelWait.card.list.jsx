@@ -37,7 +37,7 @@ const FreelWaitCardList = () => {
 			<div className="row">
 				{data.length > 0 ? (
 					data?.map((data) => (
-						<React.Fragment key={item._id}>
+						<React.Fragment key={data._id}>
 							<FreelWaitCard
 								data={data}
 								openAcceptModal={openAcceptModal}
