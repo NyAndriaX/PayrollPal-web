@@ -72,7 +72,11 @@ const SidebarLeft = () => {
 								}}>
 								<span
 									class="p-user-name"
-									style={{ display: "inline-block", textAlign: "end" }}>
+									style={{
+										flex: 1,
+										textAlign: "end",
+										marginRight: "1rem",
+									}}>
 									{" "}
 									{user.representantNom} {user.representantPrenom}
 								</span>

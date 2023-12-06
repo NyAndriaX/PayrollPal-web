@@ -31,7 +31,7 @@ const ComponentCardFreelance = () => {
 			await depositDayDump(data);
 			setDatePicker(false);
 		} catch (error) {
-			console.log(error);
+			throw error;
 		}
 	};
 
@@ -81,12 +81,21 @@ const ComponentCardFreelance = () => {
 				</div>
 				<div className="card">
 					<p className="p-h3">Contrat</p>
-					<p className="p" style={{ color: "black" }}>
-						Vous travaillez pour l'entreprise{" "}
-						<span style={{ color: "#3650fb" }}>
-							agriculture avec un TJM de 213£.
-						</span>
-					</p>
+					{placement ? (
+						<div>
+							<p className="p" style={{ color: "black" }}>
+								Vous travaillez pour l'entreprise{" "}
+								<span style={{ color: "#3650fb" }}>
+									{placement?.entreprise.raisonSocial} avec un TJM de{" "}
+									{placement?.tjm} Ariary.
+								</span>
+							</p>
+						</div>
+					) : (
+						<p className="p">
+							vous n'êtes pas encore dans une entreprise actuellement.
+						</p>
+					)}
 				</div>
 				<div className="card" style={{ backgroundColor: "rgb(255, 249, 240)" }}>
 					<p className="p-h3" style={{ color: "rgb(255,138,0)" }}>

@@ -12,7 +12,7 @@ export const DEPOSIT_DAYDUMP = "DEPOSIT_DAYDUMP";
 const fetchPlacementByFreelanceIdAction = async (dispatch, idFreelance) => {
 	try {
 		const response = await fetchPlacementByFreelanceIdService(idFreelance);
-		const placement = response.data?.result[0];
+		const placement = response.data?.result;
 		dispatch({
 			type: FETCH_PLACEMENT_BY_FREELANCE_ID,
 			payload: placement,

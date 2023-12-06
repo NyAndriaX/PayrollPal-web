@@ -37,7 +37,16 @@ const ComponentFreelancesTable = ({
 				<td>{data.Freelance.tel}</td>
 				<td>
 					{" "}
-					<div className="backend-class">FullStack</div>
+					<div
+						className={
+							data.Freelance.poste === "FullStack"
+								? "fullStack-class"
+								: data.Freelance.poste === "Backend"
+								? "backend-class"
+								: "frontend-class"
+						}>
+						{data.Freelance.poste}
+					</div>
 				</td>
 				<td className="content-btn-action">
 					<button onClick={openDeleteModalOpen}>

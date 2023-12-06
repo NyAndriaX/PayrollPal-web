@@ -10,12 +10,11 @@ const ComponentDashboardTableCompany = ({
 	const [isDeleteModalOpen, setDeleteModalOpen] = React.useState(false);
 
 	const onDelete = async (placementId) => {
-		const idFreelance = data.Freelance.id;
-		const idEntreprise = data.entreprise.id;
 		try {
+			const idFreelance = data.Freelance.id;
+			const idEntreprise = data.entreprise.id;
 			await deleteOnePlacementInThisEntreprise(idEntreprise, idFreelance);
 		} catch (error) {
-			console.log(error);
 			throw error;
 		}
 	};
@@ -38,13 +37,13 @@ const ComponentDashboardTableCompany = ({
 				<td>
 					<div
 						className={
-							data.poste === "FullStack"
+							data.Freelance.poste === "FullStack"
 								? "fullStack-class"
-								: data.poste === "Backend"
+								: data.Freelance.poste === "Backend"
 								? "backend-class"
 								: "frontend-class"
 						}>
-						{data.poste}
+						{data.Freelance.poste}
 					</div>
 				</td>
 				<td className="content-btn-action">
