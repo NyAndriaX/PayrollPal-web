@@ -13,7 +13,7 @@ const ComponentCardFreelance = () => {
 	const [isDatePicker, setDatePicker] = useState(false);
 
 	const isButtonDisabled =
-		!placement || isDepositDayInThisMonth || new Date().getDate() !== 10;
+		!placement || isDepositDayInThisMonth || new Date().getDate() === 10;
 
 	const handleCalendarButtonClick = () => {
 		setDatePicker(true);
@@ -22,16 +22,45 @@ const ComponentCardFreelance = () => {
 		try {
 			const nbrDeJours = selectedDates.length;
 			const idPlacement = placement._id;
-			const tjm = parseInt(placement.revenuMensuelFreelanceChasseur, 10);
+			const tjm = parseInt(placement.tjm, 10);
 			const data = {
 				nbrDeJours,
 				idPlacement,
 				tjm,
 			};
 			await depositDayDump(data);
+			setSelectedDates([]);
 			setDatePicker(false);
 		} catch (error) {
 			throw error;
+		}
+	};
+	const handleCancel = async () => {
+		setSelectedDates([]);
+		setDatePicker(false);
+	};
+
+	const handleDateChange = (dates, event) => {
+		if (!Array.isArray(dates) || dates.length === 0) {
+			return;
+		}
+
+		const date = dates[0];
+
+		const isDateSelected = selectedDates.some(
+			(selectedDate) =>
+				selectedDate && date.getTime() === selectedDate.getTime()
+		);
+
+		const updatedDates = selectedDates.filter(
+			(selectedDate) =>
+				selectedDate && date && date.getTime() !== selectedDate.getTime()
+		);
+
+		if (isDateSelected) {
+			setSelectedDates(updatedDates);
+		} else {
+			setSelectedDates([...selectedDates, date]);
 		}
 	};
 
@@ -55,27 +84,23 @@ const ComponentCardFreelance = () => {
 					</div>
 					{isDatePicker && (
 						<div className="react-datepicker-container">
-							<DatePicker
-								onChange={(date, event) => {
-									if (event.ctrlKey) {
-										setSelectedDates([...selectedDates, date[0]]);
-									} else {
-										console.log(date);
-									}
-								}}
-								onKeyDown={(event) => {
-									if (event.key === "Enter") {
-										handleSubmit();
-									}
-								}}
-								inline
-								isClearable
-								showMonthDropdown
-								showYearDropdown
-								dropdownMode="select"
-								selectsRange
-								highlightDates={selectedDates}
-							/>
+							<div>
+								<DatePicker
+									selected={null}
+									onChange={handleDateChange}
+									inline
+									isClearable
+									showMonthDropdown
+									showYearDropdown
+									dropdownMode="select"
+									selectsRange
+									highlightDates={selectedDates}
+								/>
+							</div>
+							<div className="react-datepicker-container-btn">
+								<button onClick={handleSubmit}>Valider</button>
+								<button onClick={handleCancel}>Annuler</button>
+							</div>
 						</div>
 					)}
 				</div>
@@ -87,7 +112,7 @@ const ComponentCardFreelance = () => {
 								Vous travaillez pour l'entreprise{" "}
 								<span style={{ color: "#3650fb" }}>
 									{placement?.entreprise.raisonSocial} avec un TJM de{" "}
-									{placement?.tjm} Ariary.
+									{placement?.tjm} Arriary.
 								</span>
 							</p>
 						</div>

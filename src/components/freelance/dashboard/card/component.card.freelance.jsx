@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const ComponentCardFreelance = () => {
 	const { dayDumpData } = useDayDumpData();
-	const { isDepositDayInThisMonth, placement, nbrDeJours } = dayDumpData;
+	const { isDepositDayInThisMonth, placement, nbrDeJours, alldayDump } =
+		dayDumpData;
 
 	const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ const ComponentCardFreelance = () => {
 							<p className="p" style={{ color: "black" }}>
 								Votre taux journalier moyen est de{" "}
 								<span style={{ color: "#3650fb" }}>
-									{placement?.tjm || ""} Ariary.
+									{placement?.tjm || ""} Arriary.
 								</span>
 							</p>
 						</div>

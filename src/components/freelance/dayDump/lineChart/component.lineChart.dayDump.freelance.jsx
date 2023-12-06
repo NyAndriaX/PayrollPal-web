@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
+import { useDayDumpData } from "../../../../context/freelance/dayDump/dayDumpContext";
+import { useFormatedDate } from "../../../../hooks/useFormatedDate";
 
 const ComponentLineChartDayDumpFreelance = () => {
+	const { dayDumpData } = useDayDumpData();
+	const { alldayDump } = dayDumpData;
+
 	const [chartOptions, setChartOptions] = useState({
 		chart: {
 			id: "basic-bar",
 		},
 		xaxis: {
-			categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+			categories: [], // Les jours iront ici
 		},
 		colors: ["#a4a6b3"],
 		stroke: {
@@ -22,7 +27,7 @@ const ComponentLineChartDayDumpFreelance = () => {
 			size: 4,
 		},
 		title: {
-			text: "Nombre de jours travaillés ce mois",
+			text: "Résumé du nombre de jours travaillés",
 			align: "left",
 			margin: 10,
 			offsetX: 0,
@@ -36,7 +41,7 @@ const ComponentLineChartDayDumpFreelance = () => {
 			},
 		},
 		subtitle: {
-			text: "Mars 2020",
+			text: "Depuis la création de votre compte",
 			align: "left",
 			margin: 10,
 			offsetX: 0,
@@ -49,20 +54,43 @@ const ComponentLineChartDayDumpFreelance = () => {
 				color: "#9699a2",
 			},
 		},
-		responsive: [
-			{
-				breakpoint: undefined,
-				options: {},
-			},
-		],
 	});
 
 	const [chartSeries, setChartSeries] = useState([
 		{
-			name: "series-1",
-			data: [30, 40, 45, 50, 49, 60, 70, 91],
+			name: "Nombre de jours travaillés",
+			data: [], // Les données iront ici
 		},
 	]);
+
+	useEffect(() => {
+		// Formatage des données pour le graphique
+		const formattedData = alldayDump.map((entry) => ({
+			x: useFormatedDate(entry.createdAt),
+			y: entry.nbrDeJours,
+		}));
+
+		// Séparation des données pour les axes x et y
+		const xData = formattedData.map((entry) => entry.x);
+		const yData = formattedData.map((entry) => entry.y);
+
+		// Mise à jour des états du graphique
+		setChartOptions((prevOptions) => ({
+			...prevOptions,
+			xaxis: {
+				...prevOptions.xaxis,
+				categories: xData,
+				max: Math.max(...xData, 30),
+			},
+		}));
+		setChartSeries((prevSeries) => [
+			{
+				...prevSeries[0],
+				data: yData,
+			},
+		]);
+	}, [alldayDump]);
+
 	return (
 		<div className="content-table">
 			<Chart
