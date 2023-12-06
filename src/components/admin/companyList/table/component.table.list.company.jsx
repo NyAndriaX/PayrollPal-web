@@ -51,7 +51,7 @@ const ComponentTableCompanyList = () => {
 								<th style={{ textAlign: "start" }}>Raison sociale</th>
 								<th>Nom et Prénom</th>
 								<th>Email</th>
-								<th>Rôles</th>
+								<th>Status</th>
 								<th>Actions</th>
 							</tr>
 						</thead>

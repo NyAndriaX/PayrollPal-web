@@ -163,6 +163,21 @@
   width:94%;
   padding:12px 12px;
 }
+.select{
+  border-color:rgba(240,241,247,1);
+  border-radius:8px;
+  border-style:solid;
+  border-width:1px;
+  font-weight:400;
+  font-size:14px;
+  width:100%;
+  padding:12px 12px;
+  background-color: white;
+}
+.select option{
+  font-size:0.80rem;
+  padding:12px 12px;
+}
 .input:hover{
   border:1px solid #b2b2b6
 }

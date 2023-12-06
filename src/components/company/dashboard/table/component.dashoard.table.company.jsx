@@ -36,7 +36,16 @@ const ComponentDashboardTableCompany = ({
 				<td>{data.tjm}</td>
 				<td>{data.Freelance.tel}</td>
 				<td>
-					<div className="backend-class">FullStack</div>
+					<div
+						className={
+							data.poste === "FullStack"
+								? "fullStack-class"
+								: data.poste === "Backend"
+								? "backend-class"
+								: "frontend-class"
+						}>
+						{data.poste}
+					</div>
 				</td>
 				<td className="content-btn-action">
 					<button onClick={openDeleteModalOpen}>

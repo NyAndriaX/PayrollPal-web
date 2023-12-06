@@ -55,9 +55,9 @@ const SignupFormParent = () => {
 		<div className="card" style={{ padding: "50px 30px" }}>
 			<div className="contentTheme">
 				<div className="bg-logo" onClick={() => navigate("/signup")}>
-					<h1 className="logo">F</h1>
+					<h1 className="logo">P</h1>
 				</div>
-				<p className="p-h2">Freelpay</p>
+				<p className="p-h2">Payrollpal</p>
 			</div>
 			<SignupFormWidthFreelance
 				isLoading={isLoading}
