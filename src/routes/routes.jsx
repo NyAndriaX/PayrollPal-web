@@ -8,6 +8,7 @@ import SuccessChangePasswordPage from "../pages/authentification/forgetPassword/
 import ValidationEmailPage from "../pages/authentification/validationEmail/validationEmail.page.jsx";
 import SignupSuccessFreelancePage from "../pages/authentification/signupPage/success/signup.success.freelance.page.jsx";
 import { useUserData } from "../context/authentification/userContext.jsx";
+import HomePage from "../pages/home/home.page.jsx";
 import HomeLayout from "../layout";
 
 const routes = [
@@ -57,6 +58,12 @@ const routes = [
 		isPrivate: false,
 	},
 	{
+		path: "/home",
+		element: <HomePage />,
+		isAuthPage: false,
+		isPrivate: false,
+	},
+	{
 		path: "/*",
 		element: <HomeLayout />,
 		isAuthPage: false,
@@ -69,7 +76,7 @@ function PrivateRoute({ element }) {
 
 	const isLoggedIn = data.infosUsers !== null;
 
-	return isLoggedIn ? element : <Navigate to="/login" />;
+	return isLoggedIn ? element : <Navigate to="/home" />;
 }
 
 export { routes, PrivateRoute };
