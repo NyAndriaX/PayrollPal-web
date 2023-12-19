@@ -22,7 +22,7 @@ export const ComponentNavbarStyled = styled.div`
 		list-style: none;
 	}
 	.nav-v2-search__input {
-		border: 1px solid #eaeaea;
+		border: none;
 		background: white;
 		padding: 10px 20px;
 		padding-left: 30px;

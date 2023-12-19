@@ -70,13 +70,7 @@ const SidebarLeft = () => {
 									justifyContent: "end",
 									flex: "1 1 0%",
 								}}>
-								<span
-									class="p-user-name"
-									style={{
-										flex: 1,
-										textAlign: "end",
-										marginRight: "1rem",
-									}}>
+								<span class="p-user-name">
 									{" "}
 									{user.representantNom} {user.representantPrenom}
 								</span>
@@ -96,11 +90,13 @@ const SidebarLeft = () => {
 							<p
 								className="p-user-name"
 								style={{
-									flex: 1,
-									textAlign: "end",
-									marginRight: "1rem",
+									display: "flex",
+									justifyContent: "end",
+									flex: "1 1 0%",
 								}}>
-								{user.nom} {user.prenom}
+								<span class="p-user-name">
+									{user.nom} {user.prenom}
+								</span>
 							</p>
 							<Gravatar
 								email={user.email}
